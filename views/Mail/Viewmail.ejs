@@ -1,0 +1,80 @@
+<%- include('../layouts/header.ejs')%>
+
+    <main id="main" class="main">
+
+        <div class="pagetitle d-flex align-items-center justify-content-between">
+            <h1>View Mail</h1>
+            
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    <li class="page-item <%if(page<3){%><%="disabled"%><%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)-2%>">Previous</a></li>
+
+                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)-1%>"><%=parseInt(page)-1%></a></li>
+                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)%>"><%=parseInt(page)%></a></li>
+                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+1%>"><%=parseInt(page)+1%></a></li>
+
+
+                    <li class="page-item <%if(page > totalPage-2){%><%="disabled"%><%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+2%>">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+       
+
+
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Table with hoverable rows</h5>
+
+                            <!-- Table with hoverable rows -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">city</th>
+                                        <th scope="col">state</th>
+                                        <th scope="col">gender</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%EmailData.map((item,i)=>{%>
+                                        <tr>
+                                            <td scope="col">
+                                                <%=(parseInt(page-1)*parseInt(per_page))+(i+1)%>
+                                            </td>
+                                            <td scope="col">
+                                                <%=item.email%>
+                                            </td>
+                                            <td scope="col">
+                                                <%=item.city.city%>
+                                            </td>
+                                            <td scope="col">
+                                                <%=item.state.state%>
+                                            </td>
+                                            <td scope="col"><a href="/sendmail/deletemail/?id=<%=item.id%>"
+                                                    class="btn btn-danger">Delete</a></td>
+                                            <td scope="col"><a href="/sendmail/done"
+                                                    class="btn btn-success">Send</a></td>
+
+                                        </tr>
+                                        <%})%>
+                                </tbody>
+                            </table>
+                            <!-- End Table with hoverable rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <%- include('../layouts/footer.ejs')%>
