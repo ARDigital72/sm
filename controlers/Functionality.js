@@ -38,17 +38,17 @@ module.exports.ViewState = async (req, res) => {
 
         let email = await EmailModel.find().populate('city').populate('state').exec()
 
-        for (i = 0; i < state.length; i++) {
+        let index = 0
+        state.forEach(item => {
             let NumberOfMail = 0
-            for (j = 0; j < email.length; j++) {
-                if (state[i].id == email[j].state.id) {
+            email.forEach(eitem => {
+                if (item.id == eitem.state.id) {
                     NumberOfMail++;
                 }
-            }
-            state[i].mail = NumberOfMail
-        }
 
-
+            })
+            state[index++].mail = NumberOfMail
+        });
 
         res.render('Functionality/ViewState', {
             state
@@ -111,15 +111,15 @@ module.exports.DeleteState = async (req, res) => {
     }
 }
 
-module.exports.SStatus = async(req,res)=>{
-    try{
+module.exports.SStatus = async (req, res) => {
+    try {
         let status = true
-        if(req.query){
+        if (req.query) {
             status = req.query.status
         }
-        let ChangStatus = await StateModel.findByIdAndUpdate(req.query.id,{status:status})
+        let ChangStatus = await StateModel.findByIdAndUpdate(req.query.id, { status: status })
 
-        if(ChangStatus){
+        if (ChangStatus) {
             console.log('State status chang');
             return res.redirect('back')
         } else {
@@ -127,7 +127,7 @@ module.exports.SStatus = async(req,res)=>{
             return res.redirect('back')
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         return res.redirect('back')
     }
@@ -163,15 +163,17 @@ module.exports.ViewCity = async (req, res) => {
     let city = await CityModel.find().populate('state').exec()
     let email = await EmailModel.find().populate('city').populate('state').exec()
 
-    for (i = 0; i < city.length; i++) {
+    let index = 0
+
+    city.forEach(item => {
         let NumberOfMail = 0
-        for (j = 0; j < email.length; j++) {
-            if (city[i].id == email[j].city.id) {
+        email.forEach(eitem =>{
+            if (item.id == eitem.city.id) {
                 NumberOfMail++;
             }
-        }
-        city[i].mail = NumberOfMail
-    }
+        })
+        city[index++].mail = NumberOfMail
+    });
 
     res.render('Functionality/ViewCity', {
         city
@@ -240,15 +242,15 @@ module.exports.DeleteCity = async (req, res) => {
     }
 }
 
-module.exports.CStatus = async(req,res)=>{
-    try{
+module.exports.CStatus = async (req, res) => {
+    try {
         let status = true
-        if(req.query){
+        if (req.query) {
             status = req.query.status
         }
-        let ChangStatus = await CityModel.findByIdAndUpdate(req.query.id,{status:status})
+        let ChangStatus = await CityModel.findByIdAndUpdate(req.query.id, { status: status })
 
-        if(ChangStatus){
+        if (ChangStatus) {
             console.log('City status chang');
             return res.redirect('back')
         } else {
@@ -256,7 +258,7 @@ module.exports.CStatus = async(req,res)=>{
             return res.redirect('back')
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         return res.redirect('back')
     }

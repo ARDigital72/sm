@@ -22,9 +22,9 @@
                             <!-- Multi Columns Form -->
                             <form action="/fun/addcity" method="post" class="row g-3">
                                 <div class="col-md-12">
-                                    <label for="inputName5" class="form-label">State</label>
-                                    <select name="state">
-                                        <option value="">--select state--</option>
+                                    <label for="inputEmail5" class="form-label">State</label>
+                                    <select name="state" class="form-select">
+                                        <option value="">--select State--</option>
                                         <% state.map((item,i)=>{%>
                                             <option value="<%=item.id%>"><%=item.state%></option>
                                             <%}) %>
@@ -39,7 +39,6 @@
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                 </div>
                             </form><!-- End Multi Columns Form -->
-
                         </div>
                     </div>
 
