@@ -163,17 +163,17 @@ module.exports.ViewCity = async (req, res) => {
     let city = await CityModel.find().populate('state').exec()
     let email = await EmailModel.find().populate('city').populate('state').exec()
 
-    let index = 0
+    // let index = 0
 
-    city.forEach(item => {
-        let NumberOfMail = 0
-        email.forEach(eitem =>{
-            if (item.id == eitem.city.id) {
-                NumberOfMail++;
-            }
-        })
-        city[index++].mail = NumberOfMail
-    });
+    // city.forEach(item => {
+    //     let NumberOfMail = 0
+    //     email.forEach(eitem =>{
+    //         if (item.id == eitem.city.id) {
+    //             NumberOfMail++;
+    //         }
+    //     })
+    //     city[index++].mail = NumberOfMail
+    // });
 
     res.render('Functionality/ViewCity', {
         city
