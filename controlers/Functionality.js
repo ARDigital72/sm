@@ -38,17 +38,17 @@ module.exports.ViewState = async (req, res) => {
 
         let email = await EmailModel.find().populate('city').populate('state').exec()
 
-        let index = 0
-        state.forEach(item => {
-            let NumberOfMail = 0
-            email.forEach(eitem => {
-                if (item.id == eitem.state.id) {
-                    NumberOfMail++;
-                }
+        // let index = 0
+        // state.forEach(item => {
+        //     let NumberOfMail = 0
+        //     email.forEach(eitem => {
+        //         if (item.id == eitem.state.id) {
+        //             NumberOfMail++;
+        //         }
 
-            })
-            state[index++].mail = NumberOfMail
-        });
+        //     })
+        //     state[index++].mail = NumberOfMail
+        // });
 
         res.render('Functionality/ViewState', {
             state
