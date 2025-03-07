@@ -37,8 +37,9 @@ module.exports.ViewState = async (req, res) => {
         
         let state = await StateModel.find()
 
-        let email = await EmailModel.find().populate('city').populate('state').exec()
-        res.end('ok')
+        // let email = await EmailModel.find().populate('city').populate('state').exec()
+        // console.log(state);
+        // console.log(state);
         // let index = 0
         // state.forEach(item => {
         //     let NumberOfMail = 0
