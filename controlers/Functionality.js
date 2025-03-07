@@ -50,7 +50,7 @@ module.exports.ViewState = async (req, res) => {
             state[index++].mail = NumberOfMail
         });
 
-        res.render('Functionality/ViewState', {
+        await res.render('Functionality/ViewState', {
             state
         })
     }
