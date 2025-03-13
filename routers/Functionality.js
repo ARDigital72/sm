@@ -10,7 +10,7 @@ routes.get('/',functionalityCtrl.AllData)
 
 //State
 routes.get('/addstatepage',(req,res)=>{
-    res.render('Functionality/CreateState')
+    res.render('findingdata/CreateState')
 })
 routes.post('/addstate',functionalityCtrl.AddState)
 
@@ -28,7 +28,7 @@ routes.get('/sstatus',functionalityCtrl.SStatus)
 //city
 routes.get('/addcitypage',async (req,res)=>{
     let state = await StateModel.find({status:true})
-    res.render('Functionality/CreateCity',{
+    res.render('findingdata/CreateCity',{
         state
     })
 })

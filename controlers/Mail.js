@@ -16,7 +16,6 @@ module.exports.SendMailpage = async (req, res) => {
     }
 }
 
-
 // add Mail Adress
 module.exports.AddMailPage = async (req, res) => {
     try {
