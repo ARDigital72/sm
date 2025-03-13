@@ -6,6 +6,8 @@ const SendMailCtrl = require('../controlers/Mail')
 
 routes.get('/',SendMailCtrl.SendMailpage)
 
+routes.post('/sendmail',SendMailCtrl.SendMails)
+
 routes.get('/addemailpage',SendMailCtrl.AddMailPage)
 
 routes.post('/addmail',SendMailCtrl.AddMail)

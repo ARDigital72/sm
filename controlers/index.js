@@ -30,16 +30,28 @@ module.exports.AddData = async (req, res) => {
 
 module.exports.InsertAdmin = async (req, res) => {
     try {
-        req.body.status = true
-
-        let addadmin = await AdminModel.create(req.body)
-        if (addadmin) {
-            console.log('admin is added');
-            return res.redirect('back')
+        let checkmail = await AdminModel.find({ email: req.body.email }).countDocuments()
+        if (checkmail == 0) {
+            if (req.body.password == req.body.conform_password) {
+                req.body.status = true
+                let addadmin = await AdminModel.create(req.body)
+                if (addadmin) {
+                    console.log('admin is added');
+                    return res.redirect('back')
+                }
+                else {
+                    console.log('admin not add');
+                    return res.redirect('/')
+                }
+            }
+            else {
+                console.log('password is not match');
+                return res.redirect('back')
+            }
         }
-        else {
-            console.log('admin not add');
-            return res.redirect('/')
+        else{
+            console.log('email is alredy register');
+            return res.redirect('back')
         }
     }
     catch (err) {
@@ -111,15 +123,15 @@ module.exports.DeleteAdmin = async (req, res) => {
     }
 }
 
-module.exports.AdminStatus = async(req,res)=>{
-    try{
+module.exports.AdminStatus = async (req, res) => {
+    try {
         let status = true
-        if(req.query){
+        if (req.query) {
             status = req.query.status
         }
 
-        let ChangStatus = await AdminModel.findByIdAndUpdate(req.query.id,{status:status})
-        if(ChangStatus){
+        let ChangStatus = await AdminModel.findByIdAndUpdate(req.query.id, { status: status })
+        if (ChangStatus) {
             console.log('Admin status chang');
             return res.redirect('back')
         } else {
@@ -127,7 +139,7 @@ module.exports.AdminStatus = async(req,res)=>{
             return res.redirect('back')
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         return res.redirect('back')
     }

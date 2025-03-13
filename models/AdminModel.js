@@ -7,6 +7,15 @@ const AdminSchma = mongose.Schema({
     email:{
         type:String
     },
+    phone:{
+        type:String
+    },
+    key:{
+        type:String
+    },
+    password:{
+        type:String
+    },
     gender:{
         type:String
     },

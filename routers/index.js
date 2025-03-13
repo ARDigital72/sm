@@ -20,6 +20,6 @@ routes.get('/deleteadmin',mainCtrl.DeleteAdmin)
 
 routes.get('/status',mainCtrl.AdminStatus)
 
-routes.use('/fun',require('./Functionality'))
+
 
 module.exports = routes
