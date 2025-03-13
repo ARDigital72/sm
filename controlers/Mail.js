@@ -3,7 +3,7 @@ const EmailModel = require('../models/EmailModel')
 const StateModle = require('../models/State')
 const CityModle = require('../models/City')
 
-const ExtraCounting = require('../models/ExtraCounting')
+// const ExtraCounting = require('../models/ExtraCounting')
 const nodemailer = require("nodemailer");
 
 module.exports.SendMailpage = async (req, res) => {
@@ -151,38 +151,5 @@ module.exports.SendMails = async (req, res) => {
     }
 }
 
-// --------------done to conut-----------------
-module.exports.Done = async (req, res) => {
-    try {
-        console.log(Date());
 
-        let TryDate = {
-            TodayDate: Date(),
-            Mail: 0
-        }
-        await ExtraCounting.create({ SendMail: TryDate })
-        let PastSendMail = await ExtraCounting.find()
-
-        if (PastSendMail) {
-            await PastSendMail.map((item, i) => {
-                if (item.SendMail[0].TodayDate == Date()) {
-                    console.log('ok');
-                }
-                else {
-                    console.log('not ok');
-                }
-            })
-            // console.log(PastSendMail);
-        }
-        else {
-            console.log('Something Wrong!! Past Data Is Not Show');
-            return res.redirect('back')
-        }
-
-    }
-    catch (err) {
-        console.log(err);
-        return res.redirect('back')
-    }
-}
 

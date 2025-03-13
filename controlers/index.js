@@ -1,16 +1,21 @@
 const AdminModel = require('../models/AdminModel')
 const EmailModel = require('../models/EmailModel')
-const ExtraCounting = require('../models/ExtraCounting')
+
+const StateModel = require('../models/State')
+const CityModel = require('../models/City')
+
 module.exports.Deshbord = async (req, res) => {
     try {
         //Mail counting
         let CountMail = await EmailModel.find().countDocuments()
+        let CountState = await StateModel.find().countDocuments()
+        let CountCity = await CityModel.find().countDocuments()
 
         // Sending Mail
-        let SendingMail = await ExtraCounting.find()
+        // let SendingMail = await ExtraCounting.find()
 
 
-        return res.render('Deshbord', { CountMail })
+        return res.render('Deshbord', { CountMail,CountState,CountCity})
     }
     catch (err) {
         console.log(err);

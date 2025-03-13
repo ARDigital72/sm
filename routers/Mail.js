@@ -16,8 +16,6 @@ routes.get('/viewemail',SendMailCtrl.ViewEmail)
 
 routes.get('/deletemail',SendMailCtrl.DeleteMail)
 
-routes.get('/done',SendMailCtrl.Done)
-
 routes.get('/findcity',SendMailCtrl.FindCity)
 
 
