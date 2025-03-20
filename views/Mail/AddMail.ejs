@@ -32,7 +32,9 @@
                                     <select name="state" id="State" class="form-select" onchange="selectcity()">
                                         <option value="">--select State--</option>
                                         <% State.map((item,i)=>{%>
-                                            <option value="<%=item.id%>"><%=item.state%></option>
+                                            <option value="<%=item.id%>">
+                                                <%=item.state%>
+                                            </option>
                                             <%}) %>
                                     </select>
                                 </div>
@@ -42,6 +44,11 @@
                                     <select name="city" class="form-select" id="city">
                                         <option value="">--select city--</option>
                                     </select>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="inputEmail5" class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" id="inputEmail5">
                                 </div>
 
                                 <div class="text-center">
