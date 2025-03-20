@@ -5,19 +5,19 @@ const port = 8000;
 
 const app = express()
 
-const db = require('./confing/db');
+// const db = require('./confing/db');
 const cookieParser = require('cookie-parser');
 
-// const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
-// mongoose.connect('mongodb+srv://ardigitalshop72:arpitguna@cluster0.mboxp.mongodb.net/email', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// }).then((res) => {
-//     console.log('DB is connected');
-// }).catch((err) => {
-//     console.log(err);
-// })
+mongoose.connect('mongodb+srv://ardigitalshop72:arpitguna@cluster0.mboxp.mongodb.net/email', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then((res) => {
+    console.log('DB is connected');
+}).catch((err) => {
+    console.log(err);
+})
 
 
 app.set('view engine', 'ejs')
