@@ -2,27 +2,30 @@ const express = require('express')
 
 const routes = express.Router()
 
-// const functionalityCtrl = require('../controlers/Functionality')
+const functionalityCtrl = require('../controlers/Functionality')
 
 const StateModel = require('../models/State')
  
 routes.get('/',functionalityCtrl.AllData)
 
 //State
-routes.get('/addstatepage',(req,res)=>{
-    res.render('findingdata/CreateState')
-})
-routes.post('/addstate',functionalityCtrl.AddState)
+// routes.get('/addstatepage',(req,res)=>{
+//     res.render('findingdata/CreateState')
+// })
+
+// routes.get('/addstateforalll',functionalityCtrl.addstateforalll)
+
+// routes.post('/addstate',functionalityCtrl.AddState)
 
 routes.get('/viewstate',functionalityCtrl.ViewState)
 
-routes.get('/updatestatepage',functionalityCtrl.UpdateStatePage)
+// routes.get('/updatestatepage',functionalityCtrl.UpdateStatePage)
 
-routes.post('/editstate',functionalityCtrl.UpdateState)
+// routes.post('/editstate',functionalityCtrl.UpdateState)
 
-routes.get('/deletestate',functionalityCtrl.DeleteState)
+// routes.get('/deletestate',functionalityCtrl.DeleteState)
 
-routes.get('/sstatus',functionalityCtrl.SStatus)
+// routes.get('/sstatus',functionalityCtrl.SStatus)
 
 
 //city
@@ -36,12 +39,12 @@ routes.post('/addcity',functionalityCtrl.AddCity)
 
 routes.get('/viewcity',functionalityCtrl.ViewCity)
 
-routes.get('/updatecitypage',functionalityCtrl.UpdateCityPage)
+// routes.get('/updatecitypage',functionalityCtrl.UpdateCityPage)
 
-routes.post('/editcity',functionalityCtrl.UpdateCity)
+// routes.post('/editcity',functionalityCtrl.UpdateCity)
 
-routes.get('/deletecity',functionalityCtrl.DeleteCity)
+// routes.get('/deletecity',functionalityCtrl.DeleteCity)
 
-routes.get('/cstatus',functionalityCtrl.CStatus)
+// routes.get('/cstatus',functionalityCtrl.CStatus)
 
 module.exports = routes

@@ -7,6 +7,44 @@ module.exports.AllData = (req, res) => {
 }
 
 //state
+module.exports.addstateforalll=async(req,res)=>{
+    try {
+        const indiaStates = [
+            "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
+            "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", 
+            "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", 
+            "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", 
+            "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
+            "Uttar Pradesh", "Uttarakhand", "West Bengal"
+          ];
+
+          
+          indiaStates.map(async(item,i)=>{
+              let checkState = await StateModel.find({ state: item }).countDocuments()
+              if (!checkState) {
+                  let CreateState = await StateModel.create({ state: item })
+                  if (CreateState) {
+                      console.log('state add successfully');
+                  }
+                  else {
+                      console.log('something wrong');
+                  }
+              }
+              else {
+                  console.log('state alredy created');
+                }
+            })
+            
+            return res.redirect('back')
+
+    }
+    catch (err) {
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
+
 module.exports.AddState = async (req, res) => {
     try {
         let checkState = await StateModel.find({ state: req.body.state }).countDocuments()

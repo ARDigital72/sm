@@ -31,7 +31,7 @@ app.use(cookieParser())
 
 app.use('/', require('./routers'))
 app.use('/sendmail',require('./routers/Mail'))
-// app.use('/fun',require('./routers/Functionality'))
+app.use('/fun',require('./routers/Functionality'))
 
 app.listen(port, (err) => {
     if (err) {

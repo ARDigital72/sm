@@ -43,15 +43,15 @@
                                             <td>
                                                 <%if(item.status){%>
                                                     <a href="/fun/cstatus?id=<%=item.id%>&status=false"
-                                                        class="btn btn-success">Active</a>
+                                                        class="btn btn-success" style="pointer-events: none;">Active</a>
                                                     <%}else{%>
                                                         <a href="/fun/cstatus?id=<%=item.id%>&status=true"
-                                                            class="btn btn-danger">Deactive</a>
+                                                            class="btn btn-danger" style="pointer-events: none;">Deactive</a>
                                                         <%}%>
                                             </td>
                                             
-                                            <td scope="col"> <a href="/fun/updatecitypage/?id=<%=item.id%>" class="btn btn-success">Update</a></td>
-                                            <td scope="col"><a href="/fun/deletecity/?id=<%=item.id%>" class="btn btn-danger">Delete</a></td>
+                                            <td scope="col"> <a href="/fun/updatecitypage/?id=<%=item.id%>" class="btn btn-success" style="pointer-events: none;">Update</a></td>
+                                            <td scope="col"><a href="/fun/deletecity/?id=<%=item.id%>" class="btn btn-danger" style="pointer-events: none;">Delete</a></td>
                                         </tr>
                                         <%})%>
                                 </tbody>
