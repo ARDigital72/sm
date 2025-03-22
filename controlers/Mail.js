@@ -5,6 +5,7 @@ const CityModle = require('../models/City')
 
 // const ExtraCounting = require('../models/ExtraCounting')
 const nodemailer = require("nodemailer");
+const Email = require('../models/EmailModel');
 
 module.exports.SendMailpage = async (req, res) => {
     try {
@@ -31,16 +32,6 @@ module.exports.AddMailPage = async (req, res) => {
     }
 }
 
-module.exports.FindCity = async (req, res) => {
-    let City = await CityModle.find({ state: req.query.State, status: true }).populate('state').exec()
-    let options = `<option>--select city--</option>`
-    City.map((item, i) => {
-        options += `<option value=${item.id}>${item.city}</option>`
-    })
-
-    return res.json(options)
-}
-
 module.exports.AddMail = async (req, res) => {
     try {
         // let abc = ['arpitguna150@gmail.com', 'arpitguna150@gmail.com', 'arpitguna150@gmail.com']
@@ -57,10 +48,10 @@ module.exports.AddMail = async (req, res) => {
         // })
 
         let EmailData = await EmailModel.create(req.body)
-        if(EmailData){
+        if (EmailData) {
             console.log('Email add succesfully');
             return res.redirect('back')
-        }else{
+        } else {
             console.log('something wrong');
             return res.redirect('back')
         }
@@ -384,4 +375,21 @@ async function sendingMail(item, product, checkuserdata) {
 
     console.log('send mail', item);
 
+}
+
+
+//ajex
+module.exports.FindCity = async (req, res) => {
+    let City = await CityModle.find({ state: req.query.State, status: true }).populate('state').exec()
+    let options = `<option>--select city--</option>`
+    City.map((item, i) => {
+        options += `<option value=${item.id}>${item.city}</option>`
+    })
+
+    return res.json(options)
+}
+
+module.exports.NumberOfMail = async (req, res) => {
+    let CountMail = await EmailModel.countDocuments({ city: req.query.City, state: req.query.State }).populate('city').populate('state').exec()
+    return res.json(CountMail)
 }

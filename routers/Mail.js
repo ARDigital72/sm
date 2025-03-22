@@ -25,7 +25,9 @@ routes.get('/viewemail',SendMailCtrl.ViewEmail)
 
 routes.get('/deletemail',SendMailCtrl.DeleteMail)
 
-routes.get('/findcity',SendMailCtrl.FindCity)
 
+// ajex
+routes.get('/findcity',SendMailCtrl.FindCity)
+routes.get('/numberofcity',SendMailCtrl.NumberOfMail)
 
 module.exports = routes

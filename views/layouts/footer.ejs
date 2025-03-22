@@ -45,6 +45,21 @@
         $('#city').html(res)
       }
     });
+  }
+
+  function Numberofmail() {
+    let State = document.getElementById('State').value;
+    let City = document.getElementById('city').value;
+
+    $.ajax({
+      url: '/sendmail/numberofcity',
+      data: {
+        State,City
+      },
+      success: function (res) {
+        $('#mail').html(res)
+      }
+    });
 
   }
 </script>

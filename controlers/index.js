@@ -12,10 +12,10 @@ module.exports.Deshbord = async (req, res) => {
         let CountCity = await CityModel.find().countDocuments()
 
         // Sending Mail
-        // let SendingMail = await ExtraCounting.find()
+        const State = await StateModel.find({status:true})
 
 
-        return res.render('Deshbord', { CountMail,CountState,CountCity})
+        return res.render('Deshbord', { CountMail,CountState,CountCity,State})
     }
     catch (err) {
         console.log(err);
