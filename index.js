@@ -33,38 +33,38 @@ app.use(cookieParser())
 //         res.render('layouts/404')
 //     })
 // }
-let a = 6
-switch (a) {
-    case 1:
-        app.get('/', (req, res) => {
-            res.render('layouts/error_400')
-        })
-        break;
+// let a = 6
+// switch (a) {
+//     case 1:
+//         app.get('/', (req, res) => {
+//             res.render('layouts/error_400')
+//         })
+//         break;
 
-    case 2:
-        app.get('/', (req, res) => {
-            res.render('layouts/error_403')
-        })
-        break;
+//     case 2:
+//         app.get('/', (req, res) => {
+//             res.render('layouts/error_403')
+//         })
+//         break;
 
-    case 3:
-        app.get('/', (req, res) => {
-            res.render('layouts/error_404')
-        })
-        break;
+//     case 3:
+//         app.get('/', (req, res) => {
+//             res.render('layouts/error_404')
+//         })
+//         break;
 
-    case 4:
-        app.get('/', (req, res) => {
-            res.render('layouts/error_500')
-        })
-        break;
+//     case 4:
+//         app.get('/', (req, res) => {
+//             res.render('layouts/error_500')
+//         })
+//         break;
 
-    default:
-        app.use('/', require('./routers'))
-        break;
-}
+//     default:
+//         app.use('/', require('./routers'))
+//         break;
+// }
 
-
+app.use('/', require('./routers'))
 app.use('/sendmail', require('./routers/Mail'))
 app.use('/fun', require('./routers/Functionality'))
 
