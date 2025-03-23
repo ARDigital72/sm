@@ -7,21 +7,14 @@
             
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-
                     <li class="page-item <%if(page<3){%><%="disabled"%><%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)-2%>">Previous</a></li>
-
                     <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)-1%>"><%=parseInt(page)-1%></a></li>
                     <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)%>"><%=parseInt(page)%></a></li>
                     <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+1%>"><%=parseInt(page)+1%></a></li>
-
-
                     <li class="page-item <%if(page > totalPage-2){%><%="disabled"%><%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+2%>">Next</a></li>
                 </ul>
             </nav>
         </div>
-       
-
-
 
         <section class="section">
             <div class="row">

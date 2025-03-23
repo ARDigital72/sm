@@ -7,42 +7,42 @@ module.exports.AllData = (req, res) => {
 }
 
 //state
-module.exports.addstateforalll=async(req,res)=>{
-    try {
-        const indiaStates = [
-            "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
-            "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", 
-            "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", 
-            "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", 
-            "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
-            "Uttar Pradesh", "Uttarakhand", "West Bengal"
-          ];
+// module.exports.addstateforall=async(req,res)=>{
+//     try {
+//         const indiaStates = [
+//             "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
+//             "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", 
+//             "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", 
+//             "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", 
+//             "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
+//             "Uttar Pradesh", "Uttarakhand", "West Bengal"
+//           ];
 
           
-          indiaStates.map(async(item,i)=>{
-              let checkState = await StateModel.find({ state: item }).countDocuments()
-              if (!checkState) {
-                  let CreateState = await StateModel.create({ state: item })
-                  if (CreateState) {
-                      console.log('state add successfully');
-                  }
-                  else {
-                      console.log('something wrong');
-                  }
-              }
-              else {
-                  console.log('state alredy created');
-                }
-            })
+//           indiaStates.map(async(item,i)=>{
+//               let checkState = await StateModel.find({ state: item }).countDocuments()
+//               if (!checkState) {
+//                   let CreateState = await StateModel.create({ state: item })
+//                   if (CreateState) {
+//                       console.log('state add successfully');
+//                   }
+//                   else {
+//                       console.log('something wrong');
+//                   }
+//               }
+//               else {
+//                   console.log('state alredy created');
+//                 }
+//             })
             
-            return res.redirect('back')
+//             return res.redirect('back')
 
-    }
-    catch (err) {
-        console.log(err);
-        return res.redirect('back')
-    }
-}
+//     }
+//     catch (err) {
+//         console.log(err);
+//         return res.redirect('back')
+//     }
+// }
 
 
 module.exports.AddState = async (req, res) => {
@@ -201,17 +201,16 @@ module.exports.ViewCity = async (req, res) => {
     let city = await CityModel.find().populate('state').exec()
     let email = await EmailModel.find().populate('city').populate('state').exec()
 
-    // let index = 0
-
-    // city.forEach(item => {
-    //     let NumberOfMail = 0
-    //     email.forEach(eitem =>{
-    //         if (item.id == eitem.city.id) {
-    //             NumberOfMail++;
-    //         }
-    //     })
-    //     city[index++].mail = NumberOfMail
-    // });
+    let index = 0
+    city.forEach(item => {
+        let NumberOfMail = 0
+        email.forEach(eitem =>{
+            if (item.id == eitem.city.id) {
+                NumberOfMail++;
+            }
+        })
+        city[index++].mail = NumberOfMail
+    });
 
     res.render('findingdata/ViewCity', {
         city

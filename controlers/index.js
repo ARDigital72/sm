@@ -25,7 +25,9 @@ module.exports.Deshbord = async (req, res) => {
 
 module.exports.AddData = async (req, res) => {
     try {
-        return res.render('Admin/AddAdmin')
+        const State = await StateModel.find({status:true})
+
+        return res.render('Admin/AddAdmin',{State})
     }
     catch (err) {
         console.log(err);

@@ -105,8 +105,6 @@ module.exports.DeleteMail = async (req, res) => {
     }
 }
 
-
-
 //send mail
 module.exports.SendMails = async (req, res) => {
     try {
@@ -178,7 +176,6 @@ module.exports.AddItem = async (req, res) => {
     }
 }
 
-
 async function sendingMail(item, product, checkuserdata) {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -204,17 +201,30 @@ async function sendingMail(item, product, checkuserdata) {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Exclusive Deals from Crete!</title>
                 <style>
-                    body {
+                    /* General styles */
+                    body, table, td, a {
                         font-family: Arial, sans-serif;
                         margin: 0;
                         padding: 0;
-                        background-color: #f4f4f4;
+                        color: #333;
                     }
 
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                        display: block;
+                    }
+
+                    table {
+                        border-spacing: 0;
+                        width: 100%;
+                    }
+
+                    /* Container */
                     .container {
                         max-width: 600px;
-                        margin: 20px auto;
-                        background: #ffffff;
+                        margin: 0 auto;
+                        background-color: #ffffff;
                         padding: 20px;
                         border-radius: 8px;
                         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -228,35 +238,29 @@ async function sendingMail(item, product, checkuserdata) {
                         border-radius: 8px 8px 0 0;
                     }
 
+                    .header h2 {
+                        font-size: 24px;
+                        margin: 0;
+                    }
+
                     .products {
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: space-around;
+                        display: block;
+                        padding: 10px 0;
                     }
 
                     .product {
-                        width: 100%;
-                        max-width: 280px;
-                        margin: 10px auto;
                         text-align: center;
+                        padding: 10px;
                     }
 
-                    .product img {
-                        max-width: 100%;
-                        height: auto;
-                        border-radius: 5px;
+                    .product h3 {
+                        font-size: 18px;
+                        color: #333;
                     }
 
-                    h3{
-                        color: black;
-                    }
-
-                    p{
-                        color: gray;
-                    }
-                        
-                    a{
-                        text-decoration: none;
+                    .product p {
+                        color: #666;
+                        font-size: 16px;
                     }
 
                     .cta {
@@ -267,42 +271,51 @@ async function sendingMail(item, product, checkuserdata) {
                     .cta a {
                         background: #007b5e;
                         color: white;
-                        padding: 10px 20px;
+                        padding: 12px 25px;
                         text-decoration: none;
                         border-radius: 5px;
                         display: inline-block;
+                        font-size: 16px;
                     }
 
                     .footer {
                         text-align: center;
-                        padding: 10px;
+                        padding: 15px;
                         font-size: 12px;
                         color: #666;
+                        margin-top: 20px;
                     }
 
-                    @media (min-width: 775px) {
-                        .products {
-                            flex-direction: row;
-                        }
-
+                    /* Responsive Styles */
+                    @media screen and (max-width: 600px) {
                         .product {
-                            width: 30%;
-                        }
-                    }
-
-                    @media (min-width: 420px) and (max-width: 774px) {
-                        .products {
-                            flex-direction: row;
+                            width: 100% !important;
+                            display: inline-block;
                         }
 
-                        .product {
-                            width: 48%;
+                        .cta a {
+                            width: 100% !important;
+                            font-size: 18px;
+                            padding: 15px 0;
                         }
                     }
 
-                    @media (max-width: 419px) {
+                    /* Product Row - Two products per row */
+                    .row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                    }
+
+                    .product {
+                        width: 48%; /* Adjust width for two products in a row */
+                        margin-bottom: 20px;
+                    }
+
+                    /* Responsive for smaller screens (one product per row) */
+                    @media screen and (max-width: 480px) {
                         .product {
-                            width: 100%;
+                            width: 100% !important;
                         }
                     }
                 </style>
@@ -315,48 +328,56 @@ async function sendingMail(item, product, checkuserdata) {
                     </div>
 
                     <div class="products">
-                        <div class="product">
-                            <a href="${product.prolink_1}">
-                                <img src="${product.imglink_1}" alt="Product 1">
-                                <h3>${product.name_1}</h3>
-                                <p>${product.price_1}</p>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="${product.prolink_2}">
-                                <img src="${product.imglink_2}" alt="Product 2">
-                                <h3>${product.name_2}</h3>
-                                <p>${product.price_2}</p>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="${product.prolink_3}">
-                                <img src="${product.imglink_3}" alt="Product 3">
-                                <h3>${product.name_3}</h3>
-                                <p>${product.price_3}</p>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="${product.prolink_4}">
-                                <img src="${product.imglink_4}" alt="Product 4">
-                                <h3>${product.name_4}</h3>
-                                <p>${product.price_4}</p>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="${product.prolink_5}">
-                                <img src="${product.imglink_5}" alt="Product 5">
-                                <h3>${product.name_5}</h3>
-                                <p>${product.price_5}</p>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <a href="${product.prolink_6}">
-                                <img src="${product.imglink_6}" alt="Product 6">
-                                <h3>${product.name_6}</h3>
-                                <p>${product.price_6}</p>
-                            </a>
-                        </div>
+                        <table>
+                            <tr>
+                                <td class="product">
+                                    <a href="${product.prolink_1}">
+                                        <img src="${product.imglink_1}" alt="Product 1">
+                                        <h3>${product.name_1}</h3>
+                                        <p>${product.price_1}</p>
+                                    </a>
+                                </td>
+                                <td class="product">
+                                    <a href="${product.prolink_2}">
+                                        <img src="${product.imglink_2}" alt="Product 2">
+                                        <h3>${product.name_2}</h3>
+                                        <p>${product.price_2}</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="product">
+                                    <a href="${product.prolink_3}">
+                                        <img src="${product.imglink_3}" alt="Product 3">
+                                        <h3>${product.name_3}</h3>
+                                        <p>${product.price_3}</p>
+                                    </a>
+                                </td>
+                                <td class="product">
+                                    <a href="${product.prolink_4}">
+                                        <img src="${product.imglink_4}" alt="Product 4">
+                                        <h3>${product.name_4}</h3>
+                                        <p>${product.price_4}</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="product">
+                                    <a href="${product.prolink_5}">
+                                        <img src="${product.imglink_5}" alt="Product 5">
+                                        <h3>${product.name_5}</h3>
+                                        <p>${product.price_5}</p>
+                                    </a>
+                                </td>
+                                <td class="product">
+                                    <a href="${product.prolink_6}">
+                                        <img src="${product.imglink_6}" alt="Product 6">
+                                        <h3>${product.name_6}</h3>
+                                        <p>${product.price_6}</p>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
 
                     <div class="cta">
@@ -364,19 +385,19 @@ async function sendingMail(item, product, checkuserdata) {
                     </div>
 
                     <div class="footer">
-                        <p>&copy; 2025 Crete E-Commerce | Unsubscribe</p>
+                        <p>&copy; 2025 Crete E-Commerce | <a href="#">Unsubscribe</a></p>
                     </div>
                 </div>
             </body>
 
             </html>
+
         `,
     });
 
     console.log('send mail', item);
 
 }
-
 
 //ajex
 module.exports.FindCity = async (req, res) => {

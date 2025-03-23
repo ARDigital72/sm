@@ -1,18 +1,19 @@
 <%- include('../layouts/header.ejs')%>
-    <main id="main" class="main">
 
+    <main id="main" class="main">
         <div class="pagetitle">
             <h1>Form Layouts</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">Forms</li>
-                    <li class="breadcrumb-item active">Layouts</li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/sendmail">Send Mail</a></li>
+                    <li class="breadcrumb-item active">Add Items</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
         <section class="section">
             <div class="row">
+                <img src="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__" style="width: 100px;height: 100px;" alt="">
                 <div class="col-12">
                     <form class="row g-3" action="/sendmail/additem" method="post">
                         <div class="card">
@@ -20,19 +21,19 @@
                                 <h5 class="card-title">item 1</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_1" class="form-control" placeholder="product name 1">
+                                    <input type="text" name="name_1" class="form-control" placeholder="product name 1" value="AR Digital">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_1" class="form-control" placeholder="product price 1">
+                                    <input type="text" name="price_1" class="form-control" placeholder="product price 1" value="100">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_1" class="form-control" placeholder="Image Link 1">
+                                    <input type="text" name="imglink_1" class="form-control" placeholder="Image Link 1" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_1" class="form-control" placeholder="product Link 1">
+                                    <input type="text" name="prolink_1" class="form-control" placeholder="product Link 1" value="https://imgur.com/a/h0AYMNa">
                                 </div>
                             </div>
                         </div>
@@ -41,19 +42,19 @@
                                 <h5 class="card-title">item 2"</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_2" class="form-control" placeholder="product name 2">
+                                    <input type="text" name="name_2" class="form-control" placeholder="product name 2" value="AR Digital">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_2" class="form-control" placeholder="product price 2">
+                                    <input type="text" name="price_2" class="form-control" placeholder="product price 2" value="100">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_2" class="form-control" placeholder="Image Link 2">
+                                    <input type="text" name="imglink_2" class="form-control" placeholder="Image Link 2" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_2" class="form-control" placeholder="product Link 2">
+                                    <input type="text" name="prolink_2" class="form-control" placeholder="product Link 2" value="https://imgur.com/a/h0AYMNa">
                                 </div>
                             </div>
                         </div>
@@ -62,19 +63,19 @@
                                 <h5 class="card-title">item 3</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_3" class="form-control" placeholder="product name 3">
+                                    <input type="text" name="name_3" class="form-control" placeholder="product name 3" value="AR Digital">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_3" class="form-control" placeholder="product price 3">
+                                    <input type="text" name="price_3" class="form-control" placeholder="product price 3" value="100">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_3" class="form-control" placeholder="Image Link 3">
+                                    <input type="text" name="imglink_3" class="form-control" placeholder="Image Link 3" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_3" class="form-control" placeholder="product Link 3">
+                                    <input type="text" name="prolink_3" class="form-control" placeholder="product Link 3" value="https://imgur.com/a/h0AYMNa">
                                 </div>
                             </div>
                         </div>
@@ -83,19 +84,19 @@
                                 <h5 class="card-title">item 4</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_4" class="form-control" placeholder="product name 4">
+                                    <input type="text" name="name_4" class="form-control" placeholder="product name 4" value="AR Digital">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_4" class="form-control" placeholder="product price 4">
+                                    <input type="text" name="price_4" class="form-control" placeholder="product price 4" value="100">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_4" class="form-control" placeholder="Image Link 4">
+                                    <input type="text" name="imglink_4" class="form-control" placeholder="Image Link 4" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_4" class="form-control" placeholder="product Link 4">
+                                    <input type="text" name="prolink_4" class="form-control" placeholder="product Link 4" value="https://imgur.com/a/h0AYMNa">
                                 </div>
                             </div>
                         </div>
@@ -104,19 +105,19 @@
                                 <h5 class="card-title">item 5</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_5" class="form-control" placeholder="product name 5">
+                                    <input type="text" name="name_5" class="form-control" placeholder="product name 5" value="AR Digital">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_5" class="form-control" placeholder="product price 5">
+                                    <input type="text" name="price_5" class="form-control" placeholder="product price 5" value="100">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_5" class="form-control" placeholder="Image Link 5">
+                                    <input type="text" name="imglink_5" class="form-control" placeholder="Image Link 5" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_5" class="form-control" placeholder="product Link 5">
+                                    <input type="text" name="prolink_5" class="form-control" placeholder="product Link 5" value="https://imgur.com/a/h0AYMNa">
                                 </div>
                             </div>
                         </div>
@@ -125,19 +126,19 @@
                                 <h5 class="card-title">item 6</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_6" class="form-control" placeholder="product name 6">
+                                    <input type="text" name="name_6" class="form-control" placeholder="product name 6" value="AR Digital">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_6" class="form-control" placeholder="product price 6">
+                                    <input type="text" name="price_6" class="form-control" placeholder="product price 6" value="100">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_6" class="form-control" placeholder="Image Link 6">
+                                    <input type="text" name="imglink_6" class="form-control" placeholder="Image Link 6" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_6" class="form-control" placeholder="product Link 6">
+                                    <input type="text" name="prolink_6" class="form-control" placeholder="product Link 6" value="https://imgur.com/a/h0AYMNa">
                                 </div>
                             </div>
                         </div>
