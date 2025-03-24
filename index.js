@@ -6,7 +6,6 @@ const port = 8000;
 const app = express()
 
 // const db = require('./confing/db');
-const cookieParser = require('cookie-parser');
 
 const mongoose = require('mongoose')
 
@@ -20,11 +19,33 @@ mongoose.connect('mongodb+srv://ardigitalshop72:arpitguna@cluster0.mboxp.mongodb
 })
 
 
+const cookieparser = require('cookie-parser')
+const passport = require('passport')
+const LocalStrategy = require('./confing/PassportLocal')
+const session = require('express-session')
+
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
-app.use(express.static(path.join(__dirname, 'assets')))
+
+app.use(cookieparser())
 app.use(express.urlencoded())
-app.use(cookieParser())
+
+app.use(express.static(path.join(__dirname, 'assets')))
+
+app.use(session({
+    name: "AR",
+    secret: 'ARPATEL',
+    resave: false,
+    saveuninitilized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60
+    }
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+// app.use(passport.setAuthUser)
 
 // if (2 == 1) {
 //     app.use('/', require('./routers'))

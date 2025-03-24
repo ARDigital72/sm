@@ -19,6 +19,9 @@ const AdminSchma = mongose.Schema({
     gender:{
         type:String
     },
+    role:{
+        type:String
+    },
     status:{
         type:Boolean
     }

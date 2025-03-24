@@ -4,6 +4,43 @@ const EmailModel = require('../models/EmailModel')
 const StateModel = require('../models/State')
 const CityModel = require('../models/City')
 
+
+
+module.exports.loginpage = async (req, res) => {
+    try {
+        if (req.cookies.login) {
+            return res.redirect('/')
+        }
+        else {
+            return res.render('auth/login')
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
+module.exports.login = async (req, res) => {
+    try {
+        return res.redirect('/')
+    }
+    catch (err) {
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
+module.exports.Register = async(req,res)=>{
+    try{
+        const State = await StateModel.find({status:true})
+        res.render('auth/Register',{State})
+    }catch(err){
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
 module.exports.Deshbord = async (req, res) => {
     try {
         //Mail counting
@@ -41,6 +78,7 @@ module.exports.InsertAdmin = async (req, res) => {
         if (checkmail == 0) {
             if (req.body.password == req.body.conform_password) {
                 req.body.status = true
+                req.body.role = 'user'
                 let addadmin = await AdminModel.create(req.body)
                 if (addadmin) {
                     console.log('admin is added');

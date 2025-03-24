@@ -4,21 +4,29 @@ const routes = express.Router()
 
 const mainCtrl = require('../controlers')
 
-routes.get('/',mainCtrl.Deshbord)
+const passport = require('passport');
 
-routes.get('/addadminpage',mainCtrl.AddData)
+routes.get('/loginpage',mainCtrl.loginpage)
+
+routes.post('/login',passport.authenticate('local',{failureredirect:'/loginpage'}),mainCtrl.login)
+
+routes.get('/register',mainCtrl.Register)
+
+routes.get('/',passport.checkAuthUser,mainCtrl.Deshbord)
+
+routes.get('/addadminpage',passport.checkAuthUser,mainCtrl.AddData)
 
 routes.post('/addadmin',mainCtrl.InsertAdmin)
 
-routes.get('/viewadmin',mainCtrl.ViewAdmin)
+routes.get('/viewadmin',passport.checkAuthUser,mainCtrl.ViewAdmin)
 
-routes.get('/updatedminpage',mainCtrl.UpdateAdminPage)
+routes.get('/updatedminpage',passport.checkAuthUser,mainCtrl.UpdateAdminPage)
 
-routes.post('/updateadmin',mainCtrl.UpdateAdmin)
+routes.post('/updateadmin',passport.checkAuthUser,mainCtrl.UpdateAdmin)
 
-routes.get('/deleteadmin',mainCtrl.DeleteAdmin)
+routes.get('/deleteadmin',passport.checkAuthUser,mainCtrl.DeleteAdmin)
 
-routes.get('/status',mainCtrl.AdminStatus)
+routes.get('/status',passport.checkAuthUser,mainCtrl.AdminStatus)
 
 
 
