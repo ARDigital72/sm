@@ -1,11 +1,13 @@
+const path = require('path')
+const fs = require('fs')
+
 const AdminModel = require('../models/AdminModel')
 const EmailModel = require('../models/EmailModel')
-
+const EmailActivity = require('../models/EmailActivity')
 const StateModel = require('../models/State')
 const CityModel = require('../models/City')
 
-
-
+// auth
 module.exports.loginpage = async (req, res) => {
     try {
         if (req.cookies.login) {
@@ -31,28 +33,19 @@ module.exports.login = async (req, res) => {
     }
 }
 
-module.exports.Register = async(req,res)=>{
-    try{
-        const State = await StateModel.find({status:true})
-        res.render('auth/Register',{State})
-    }catch(err){
+module.exports.Register = async (req, res) => {
+    try {
+        const State = await StateModel.find({ status: true })
+        res.render('auth/Register', { State })
+    } catch (err) {
         console.log(err);
         return res.redirect('back')
     }
 }
 
-module.exports.Deshbord = async (req, res) => {
+module.exports.ChangPasswordPage = async (req, res) => {
     try {
-        //Mail counting
-        let CountMail = await EmailModel.find().countDocuments()
-        let CountState = await StateModel.find().countDocuments()
-        let CountCity = await CityModel.find().countDocuments()
-
-        // Sending Mail
-        const State = await StateModel.find({status:true})
-
-
-        return res.render('Deshbord', { CountMail,CountState,CountCity,State})
+        return res.render('auth/ChangPassword')
     }
     catch (err) {
         console.log(err);
@@ -60,11 +53,89 @@ module.exports.Deshbord = async (req, res) => {
     }
 }
 
+module.exports.ChangPassword = async (req, res) => {
+    try {
+        if (req.user.password == req.body.current_password) {
+            if (req.body.password == req.body.conform_password) {
+                if (req.user.password != req.body.password) {
+                    let ChangPassword = await AdminModel.findByIdAndUpdate(req.user.id, { password: req.body.password })
+                    if (ChangPassword) {
+                        console.log('password chang successfully');
+                        return res.redirect('/signout')
+                    } else {
+                        console.log('something wrong');
+                        return res.redirect('back')
+                    }
+                } else {
+                    console.log('old and current password is same')
+                    return res.redirect('back')
+                }
+            } else {
+                console.log('password is not match');
+                return res.redirect('back')
+            }
+        } else {
+            console.log('wrong password');
+            return res.redirect('back')
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
+module.exports.SignOut = async (req, res) => {
+    try {
+        req.session.destroy(function (err) {
+            if (err) {
+                return false
+            }
+            return res.redirect('/')
+        })
+    } catch (err) {
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
+
+// admin routes
+module.exports.Deshbord = async (req, res) => {
+    try {
+        let today = new Date()
+        let date = today.toLocaleDateString(); // Current date in the format of your locale
+        console.log(date);
+        //Mail counting
+        let CountMail = await EmailModel.find().countDocuments()
+        let CountState = await StateModel.find().countDocuments()
+        let CountCity = await CityModel.find().countDocuments()
+
+        // Sending Mail
+        const State = await StateModel.find({ status: true })
+        return res.render('Deshbord', { user: req.user, CountMail, CountState, CountCity, State })
+    }
+    catch (err) {
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
+module.exports.Profile = async (req, res) => {
+    try {
+        let user = await AdminModel.findById(req.user.id).populate('city').populate('state').exec()
+        return res.render('Profile', { user })
+    } catch (err) {
+        console.log(err);
+        return res.redirect('back')
+    }
+}
+
 module.exports.AddData = async (req, res) => {
     try {
-        const State = await StateModel.find({status:true})
+        const State = await StateModel.find({ status: true })
 
-        return res.render('Admin/AddAdmin',{State})
+        return res.render('Admin/AddAdmin', { user: req.user, State })
     }
     catch (err) {
         console.log(err);
@@ -79,10 +150,16 @@ module.exports.InsertAdmin = async (req, res) => {
             if (req.body.password == req.body.conform_password) {
                 req.body.status = true
                 req.body.role = 'user'
+
+                if (req.file) {
+                    req.body.image = AdminModel.imgpath + '/' + req.file.filename;
+                }
+
                 let addadmin = await AdminModel.create(req.body)
                 if (addadmin) {
+                    await EmailActivity.create({user:addadmin.id})
                     console.log('admin is added');
-                    return res.redirect('back')
+                    return res.redirect('/signout')
                 }
                 else {
                     console.log('admin not add');
@@ -94,7 +171,7 @@ module.exports.InsertAdmin = async (req, res) => {
                 return res.redirect('back')
             }
         }
-        else{
+        else {
             console.log('email is alredy register');
             return res.redirect('back')
         }
@@ -110,6 +187,7 @@ module.exports.ViewAdmin = async (req, res) => {
         let AdminData = await AdminModel.find()
 
         return res.render('Admin/ViewAdmin', {
+            user: req.user,
             AdminData
         })
     }
@@ -124,6 +202,7 @@ module.exports.UpdateAdminPage = async (req, res) => {
         let AdminData = await AdminModel.findById(req.query.id)
 
         return res.render('Admin/EditAdmin', {
+            user: req.user,
             AdminData
         })
     }
@@ -135,15 +214,41 @@ module.exports.UpdateAdminPage = async (req, res) => {
 
 module.exports.UpdateAdmin = async (req, res) => {
     try {
-        let UpdateAdmin = await AdminModel.findByIdAndUpdate(req.body.id, req.body)
+        let AdminData = await AdminModel.findById(req.body.id)
+        let imgpath = ''
+        if (req.file) {
+            try {
+                imgpath = path.join(__dirname, '..', AdminData.image)
+                await fs.unlinkSync(imgpath)
+            }
+            catch (err) {
+                console.log('img not found');
+                return res.redirect('back')
+            }
+            req.body.image = AdminModel.imgpath + '/' + req.file.filename
 
-        if (UpdateAdmin) {
-            console.log('Admin update');
-            return res.redirect('/viewadmin')
-        } else {
-            console.log('Admin not update');
-            return res.redirect('back')
+            let UpdateAdmin = await AdminModel.findByIdAndUpdate(req.body.id, req.body)
+            if (UpdateAdmin) {
+                console.log('Admin update');
+                return res.redirect('/viewadmin')
+            } else {
+                console.log('Admin not update');
+                return res.redirect('back')
+            }
         }
+        else {
+            req.body.image = AdminData.image
+
+            let UpdateAdmin = await AdminModel.findByIdAndUpdate(req.body.id, req.body)
+            if (UpdateAdmin) {
+                console.log('Admin update');
+                return res.redirect('/viewadmin')
+            } else {
+                console.log('Admin not update');
+                return res.redirect('back')
+            }
+        }
+
     }
     catch (err) {
         console.log(err);
@@ -153,6 +258,13 @@ module.exports.UpdateAdmin = async (req, res) => {
 
 module.exports.DeleteAdmin = async (req, res) => {
     try {
+        let singledata = await AdminModel.findById(req.query.id)
+        let oldpath = ''
+        if (singledata.image) {
+            oldpath = path.join(__dirname, '..', singledata.image);
+            await fs.unlinkSync(oldpath)
+        }
+
         let DeleteAdmin = await AdminModel.findByIdAndDelete(req.query.id)
         if (DeleteAdmin) {
             console.log('Delete Admin');

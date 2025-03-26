@@ -5,19 +5,19 @@ const routes = express.Router()
 const functionalityCtrl = require('../controlers/Functionality')
 
 const StateModel = require('../models/State')
- 
-routes.get('/',functionalityCtrl.AllData)
+
+routes.get('/', functionalityCtrl.AllData)
 
 //State
 // routes.get('/addstatepage',(req,res)=>{
-//     res.render('findingdata/CreateState')
+//     res.render('findingdata/CreateState',{user: req.user})
 // })
 
 // routes.get('/addstateforalll',functionalityCtrl.addstateforalll)
 
 // routes.post('/addstate',functionalityCtrl.AddState)
 
-routes.get('/viewstate',functionalityCtrl.ViewState)
+routes.get('/viewstate', functionalityCtrl.ViewState)
 
 // routes.get('/updatestatepage',functionalityCtrl.UpdateStatePage)
 
@@ -29,15 +29,16 @@ routes.get('/viewstate',functionalityCtrl.ViewState)
 
 
 //city
-routes.get('/addcitypage',async (req,res)=>{
-    let state = await StateModel.find({status:true})
-    res.render('findingdata/CreateCity',{
+routes.get('/addcitypage', async (req, res) => {
+    let state = await StateModel.find({ status: true })
+    res.render('findingdata/CreateCity', {
+        user: req.user,
         state
     })
 })
-routes.post('/addcity',functionalityCtrl.AddCity)
+routes.post('/addcity', functionalityCtrl.AddCity)
 
-routes.get('/viewcity',functionalityCtrl.ViewCity)
+routes.get('/viewcity', functionalityCtrl.ViewCity)
 
 // routes.get('/updatecitypage',functionalityCtrl.UpdateCityPage)
 

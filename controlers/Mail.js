@@ -1,5 +1,6 @@
 const AdminModel = require('../models/AdminModel')
 const EmailModel = require('../models/EmailModel')
+const EmailActivity = require('../models/EmailActivity')
 const StateModle = require('../models/State')
 const CityModle = require('../models/City')
 
@@ -9,7 +10,7 @@ const Email = require('../models/EmailModel');
 
 module.exports.SendMailpage = async (req, res) => {
     try {
-        return res.render('Mail/Sendmail')
+        return res.render('Mail/Sendmail', { user: req.user, })
     }
     catch (err) {
         console.log(err);
@@ -23,6 +24,7 @@ module.exports.AddMailPage = async (req, res) => {
         let State = await StateModle.find({ status: true })
 
         return res.render('Mail/AddMail', {
+            user: req.user,
             State
         })
     }
@@ -78,7 +80,7 @@ module.exports.ViewEmail = async (req, res) => {
         let EmailData = await EmailModel.find().skip((page - 1) * per_page).limit(per_page).populate('city').populate('state').exec()
 
         return res.render('Mail/Viewmail', {
-            EmailData, totalPage, page, per_page
+            user: req.user, EmailData, totalPage, page, per_page
         })
     }
     catch (err) {
@@ -155,7 +157,6 @@ module.exports.AddItem = async (req, res) => {
                 let allemail = await EmailModel.find().skip((lot - 1) * limit).limit(limit);
 
                 let product = req.body
-                console.log(product);
                 allemail.map((item, i) => {
                     sendingMail(item.email, product, user)
                 })
@@ -175,6 +176,24 @@ module.exports.AddItem = async (req, res) => {
         return res.redirect('back')
     }
 }
+
+// async function sendingMail(item, product, checkuserdata) {
+//     let UserData = (await AdminModel.find({ email: item }))[0]
+//     let data = (await EmailActivity.find({ user: UserData.id }))[0]
+//     console.log(data);
+//     // let send = parseInt(data.send)
+//     // let year = parseInt(data.year)
+//     if (!data.year && !data.send) {
+//         await EmailActivity.findByIdAndUpdate(data.id, { send: 1, year:1 })
+//     }
+//     // else {
+//     //     send++
+//     //     year++
+//     // }
+//     let chang = await EmailActivity.findByIdAndUpdate(data.id, { send: data.send++, year: data.year++ })
+
+//     console.log(chang);
+// }
 
 async function sendingMail(item, product, checkuserdata) {
     const transporter = nodemailer.createTransport({
@@ -400,6 +419,7 @@ async function sendingMail(item, product, checkuserdata) {
 }
 
 //ajex
+
 module.exports.FindCity = async (req, res) => {
     let City = await CityModle.find({ state: req.query.State, status: true }).populate('state').exec()
     let options = `<option>--select city--</option>`

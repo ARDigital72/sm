@@ -64,13 +64,19 @@
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                   </div>
 
-                  <form action="/addadmin" method="post" class="row g-3 needs-validation">
+                  <form action="/addadmin" method="post" class="row g-3 needs-validation" enctype="multipart/form-data">
                     <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
 
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label">Your phone</label>
+                      <input type="number" name="phone" class="form-control" id="yourEmail" required>
+                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                    </div>
+                    
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
@@ -81,6 +87,11 @@
                       <label for="yourkey" class="form-label">Your key</label>
                       <input type="key" name="key" class="form-control" id="yourkey" required>
                       <div class="invalid-feedback">Please enter a valid key adddress!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="inputNumber" class="col-form-label">File Upload</label>
+                      <input class="form-control" type="file" name="image">
                     </div>
 
                     <div class="col-12">

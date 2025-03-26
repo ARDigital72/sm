@@ -1,34 +1,73 @@
 const mongose = require('mongoose')
 
+const path = require('path')
+
+const multer = require('multer')
+const { type } = require('os')
+
+const imgpath = '/uploads/user'
+
 const AdminSchma = mongose.Schema({
-    name:{
-        type:String
+    name: {
+        type: String
     },
-    email:{
-        type:String
+    email: {
+        type: String
     },
-    phone:{
-        type:String
+    phone: {
+        type: String
     },
-    key:{
-        type:String
+    key: {
+        type: String
     },
-    password:{
-        type:String
+    password: {
+        type: String
     },
-    gender:{
-        type:String
+    gender: {
+        type: String
     },
-    role:{
-        type:String
+    role: {
+        type: String
     },
-    status:{
-        type:Boolean
+    image: {
+        type: String
+    },
+    state: {
+        type: mongose.Schema.Types.ObjectId,
+        ref: 'state'
+    },
+    city: {
+        type: mongose.Schema.Types.ObjectId,
+        ref: 'city'
+    },
+    twitter: {
+        type: String
+    },
+    facebook: {
+        type: String
+    },
+    instagram: {
+        type: String
+    },
+    status: {
+        type: String
     }
-},{
-    timestamps:true
+}, {
+    timestamps: true
 })
 
-const admin = mongose.model('admin',AdminSchma)
+const uploadimg = multer.diskStorage({
+    destination: (req, file, cd) => {
+        cd(null, path.join(__dirname, '..', imgpath))
+    },
+    filename: (req, file, cd) => {
+        cd(null, file.fieldname + '-' + Date.now())
+    }
+})
+
+AdminSchma.statics.uploadimg = multer({ storage: uploadimg }).single('image')
+AdminSchma.statics.imgpath = imgpath
+
+const admin = mongose.model('admin', AdminSchma)
 
 module.exports = admin

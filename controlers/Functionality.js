@@ -18,7 +18,7 @@ module.exports.AllData = (req, res) => {
 //             "Uttar Pradesh", "Uttarakhand", "West Bengal"
 //           ];
 
-          
+
 //           indiaStates.map(async(item,i)=>{
 //               let checkState = await StateModel.find({ state: item }).countDocuments()
 //               if (!checkState) {
@@ -34,7 +34,7 @@ module.exports.AllData = (req, res) => {
 //                   console.log('state alredy created');
 //                 }
 //             })
-            
+
 //             return res.redirect('back')
 
 //     }
@@ -72,7 +72,7 @@ module.exports.AddState = async (req, res) => {
 
 module.exports.ViewState = async (req, res) => {
     try {
-        
+
         let state = await StateModel.find()
 
         let email = await EmailModel.find().populate('city').populate('state').exec()
@@ -89,6 +89,7 @@ module.exports.ViewState = async (req, res) => {
         });
 
         await res.render('findingdata/ViewState', {
+            user: req.user,
             state
         })
     }
@@ -102,6 +103,7 @@ module.exports.UpdateStatePage = async (req, res) => {
     try {
         let StateData = await StateModel.findById(req.query.id)
         return res.render('findingdata/editstate', {
+            user: req.user,
             StateData
         })
     }
@@ -204,7 +206,7 @@ module.exports.ViewCity = async (req, res) => {
     let index = 0
     city.forEach(item => {
         let NumberOfMail = 0
-        email.forEach(eitem =>{
+        email.forEach(eitem => {
             if (item.id == eitem.city.id) {
                 NumberOfMail++;
             }
@@ -213,6 +215,7 @@ module.exports.ViewCity = async (req, res) => {
     });
 
     res.render('findingdata/ViewCity', {
+        user: req.user,
         city
     })
 }
@@ -222,6 +225,7 @@ module.exports.UpdateCityPage = async (req, res) => {
         let state = await StateModel.find().populate('state').exec()
         let CityData = await CityModel.findById(req.query.id)
         return res.render('findingdata/editcity', {
+            user: req.user,
             CityData, state
         })
     }
