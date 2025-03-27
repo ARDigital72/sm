@@ -5,7 +5,7 @@ const MailActivitySchma = mongose.Schema({
         type: mongose.Schema.Types.ObjectId,
         ref: 'admin'
     },
-    send:{
+    today:{
         type:Number
     },
     year:{

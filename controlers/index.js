@@ -103,17 +103,21 @@ module.exports.SignOut = async (req, res) => {
 // admin routes
 module.exports.Deshbord = async (req, res) => {
     try {
-        let today = new Date()
-        let date = today.toLocaleDateString(); // Current date in the format of your locale
-        console.log(date);
         //Mail counting
         let CountMail = await EmailModel.find().countDocuments()
         let CountState = await StateModel.find().countDocuments()
         let CountCity = await CityModel.find().countDocuments()
 
         // Sending Mail
+        let today = new Date()
+        let Mail = (await EmailActivity.find({ user: req.user.id }))[0]
+        if (Mail.updatedAt.toLocaleDateString() != today.toLocaleDateString()) {
+            await EmailActivity.updateOne({user: req.user.id}, { today: 0 })
+        }
+        Mail = await EmailActivity.findById(Mail.id)
+
         const State = await StateModel.find({ status: true })
-        return res.render('Deshbord', { user: req.user, CountMail, CountState, CountCity, State })
+        return res.render('Deshbord', { user: req.user, CountMail, year: Mail.year, today: Mail.today, State })
     }
     catch (err) {
         console.log(err);
@@ -157,7 +161,7 @@ module.exports.InsertAdmin = async (req, res) => {
 
                 let addadmin = await AdminModel.create(req.body)
                 if (addadmin) {
-                    await EmailActivity.create({user:addadmin.id})
+                    await EmailActivity.create({ user: addadmin.id, year: 0, today: 0 })
                     console.log('admin is added');
                     return res.redirect('/signout')
                 }
