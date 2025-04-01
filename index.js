@@ -24,6 +24,9 @@ const passport = require('passport')
 const LocalStrategy = require('./confing/PassportLocal')
 const session = require('express-session')
 
+const flash = require('connect-flash')
+const flashmassage = require('./confing/FlashMassage')
+
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
@@ -43,57 +46,19 @@ app.use(session({
     }
 }))
 
-// app.use(passport.initialize())
 app.use(passport.session())
 
-// app.use(passport.setAuthUser)
+app.use(flash())
+app.use(flashmassage.setflash)
 
-// if (2 == 1) {
-//     app.use('/', require('./routers'))
-// } else {
-//     app.get('/', (req, res) => {
-//         res.render('layouts/404')
-//     })
-// }
-// let a = 6
-// switch (a) {
-//     case 1:
-//         app.get('/', (req, res) => {
-//             res.render('layouts/error_400')
-//         })
-//         break;
-
-//     case 2:
-//         app.get('/', (req, res) => {
-//             res.render('layouts/error_403')
-//         })
-//         break;
-
-//     case 3:
-//         app.get('/', (req, res) => {
-//             res.render('layouts/error_404')
-//         })
-//         break;
-
-//     case 4:
-//         app.get('/', (req, res) => {
-//             res.render('layouts/error_500')
-//         })
-//         break;
-
-//     default:
-//         app.use('/', require('./routers'))
-//         break;
-// }
+let error = require('./models/Error')
 
 app.use('/', require('./routers'))
-app.use('/sendmail', require('./routers/Mail'))
-app.use('/fun', passport.checkAuthUser, require('./routers/Functionality'))
 
 app.listen(port, (err) => {
     if (err) {
         console.log(err);
         return false
     }
-    console.log('server is run');
+    console.log('server is on port',port);
 })

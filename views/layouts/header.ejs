@@ -62,7 +62,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<%=user.image%>" alt="Profile" class="rounded-circle">
+            <img src="" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><%=user.name%></span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -132,25 +132,6 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <!-- Admin -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person"></i><span>Admin</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/addadminpage">
-              <i class="bi bi-circle"></i><span>Add Admin</span>
-            </a>
-          </li>
-          <li>
-            <a href="/viewadmin">
-              <i class="bi bi-circle"></i><span>View Admin</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
       <!--send mail -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#send-mail-nav" data-bs-toggle="collapse" href="#">
@@ -179,44 +160,6 @@
           <li>
             <a href="/sendmail/viewemail">
               <i class="bi bi-circle"></i><span>view Email</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- state  -->
-      <li class="nav-item" >
-        <a class="nav-link collapsed" data-bs-target="#state-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-geo-alt"></i><span>State</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="state-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/fun/addstatepage" >
-              <i class="bi bi-circle"></i><span>Add State</span>
-            </a>
-          </li>
-          <li>
-            <a href="/fun/viewstate">
-              <i class="bi bi-circle"></i><span>View State</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- city -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#City-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-building"></i><span>City</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="City-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/fun/addcitypage">
-              <i class="bi bi-circle"></i><span>Add city</span>
-            </a>
-          </li>
-          <li>
-            <a href="/fun/viewcity">
-              <i class="bi bi-circle"></i><span>View city</span>
             </a>
           </li>
         </ul>

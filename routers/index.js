@@ -8,6 +8,7 @@ const mainCtrl = require('../controlers')
 
 const AdminModel = require('../models/AdminModel')
 
+const Error = require('../confing/error')
 
 routes.get('/loginpage', mainCtrl.loginpage)
 
@@ -15,29 +16,27 @@ routes.post('/login', passport.authenticate('local', { failureredirect: '/loginp
 
 routes.get('/register', mainCtrl.Register)
 
-routes.get('/changpassword', passport.checkAuthUser, mainCtrl.ChangPasswordPage)
-
-routes.post('/changpassword', passport.checkAuthUser, mainCtrl.ChangPassword)
-
-routes.get('/signout', passport.checkAuthUser, mainCtrl.SignOut)
-
-// Admin / User
-routes.get('/', passport.checkAuthUser, mainCtrl.Deshbord)
-
-routes.get('/profile', passport.checkAuthUser, mainCtrl.Profile)
-
-routes.get('/addadminpage', passport.checkAuthUser, mainCtrl.AddData)
-
 routes.post('/addadmin', AdminModel.uploadimg, mainCtrl.InsertAdmin)
 
-routes.get('/viewadmin', passport.checkAuthUser, mainCtrl.ViewAdmin)
+// after Login or Register
+routes.get('/changpassword', Error, passport.checkAuthUser, mainCtrl.ChangPasswordPage)
 
-routes.get('/updatedminpage', passport.checkAuthUser, mainCtrl.UpdateAdminPage)
+routes.post('/changpassword', Error, passport.checkAuthUser, mainCtrl.ChangPassword)
 
-routes.post('/updateadmin', AdminModel.uploadimg, passport.checkAuthUser, mainCtrl.UpdateAdmin)
+routes.get('/signout', Error, passport.checkAuthUser, mainCtrl.SignOut)
 
-routes.get('/deleteadmin', passport.checkAuthUser, mainCtrl.DeleteAdmin)
+// Admin / User
+routes.get('/', Error, passport.checkAuthUser, mainCtrl.Deshbord)
 
-routes.get('/status', passport.checkAuthUser, mainCtrl.AdminStatus)
+routes.get('/profile', Error, passport.checkAuthUser, mainCtrl.Profile)
+
+routes.post('/updateadmin', Error, AdminModel.uploadimg, passport.checkAuthUser, mainCtrl.UpdateAdmin)
+
+routes.get('/deleteadmin', Error, passport.checkAuthUser, mainCtrl.DeleteAdmin)//logout
+
+routes.get('/status', Error, passport.checkAuthUser, mainCtrl.AdminStatus)
+
+// other routing calling
+routes.use('/sendmail',Error,require('./Mail'))
 
 module.exports = routes

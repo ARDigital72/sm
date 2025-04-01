@@ -11,6 +11,12 @@
       </nav>
     </div>
 
+    <%if(locals.flash.success.length){%>
+      <div class="alert alert-success">
+          <p class="mb-0"><%=locals.flash.success%></p>
+      </div>
+      <%}%>
+
     <section class="section dashboard">
       <div class="row">
 

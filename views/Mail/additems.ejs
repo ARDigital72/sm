@@ -12,8 +12,12 @@
             </nav>
         </div><!-- End Page Title -->
         <section class="section">
+            <%if(locals.flash.success.length){%>
+                <div class="alert alert-success">
+                    <p class="mb-0"><%=locals.flash.success%></p>
+                </div>
+                <%}%>
             <div class="row">
-                <img src="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__" style="width: 100px;height: 100px;" alt="">
                 <div class="col-12">
                     <form class="row g-3" action="/sendmail/additem" method="post">
                         <div class="card">
@@ -21,40 +25,80 @@
                                 <h5 class="card-title">item 1</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_1" class="form-control" placeholder="product name 1" value="AR Digital">
+                                    <input type="text" name="name_1" class="form-control" placeholder="product name 1" value="<% if(oldData && oldData.name_1){%><%=oldData.name_1%><%}%>">
+                                    <%if(errorData && errorData.name_1){%>
+                                        <span class="text-danger">
+                                          <%=errorData.name_1.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_1" class="form-control" placeholder="product price 1" value="100">
+                                    <input type="text" name="price_1" class="form-control" placeholder="product price 1" value="<% if(oldData && oldData.name_1){%><%=oldData.name_1%><%}%>">
+                                    <%if(errorData && errorData.price_1){%>
+                                        <span class="text-danger">
+                                          <%=errorData.price_1.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_1" class="form-control" placeholder="Image Link 1" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
+                                    <input type="text" name="imglink_1" class="form-control" placeholder="Image Link 1" value="<% if(oldData && oldData.imglink_1){%><%=oldData.imglink_1%><%}%>">
+                                    <%if(errorData && errorData.imglink_1){%>
+                                        <span class="text-danger">
+                                          <%=errorData.imglink_1.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_1" class="form-control" placeholder="product Link 1" value="https://imgur.com/a/h0AYMNa">
+                                    <input type="text" name="prolink_1" class="form-control" placeholder="product Link 1" value="<% if(oldData && oldData.prolink_1){%><%=oldData.prolink_1%><%}%>">
+                                    <%if(errorData && errorData.prolink_1){%>
+                                        <span class="text-danger">
+                                          <%=errorData.prolink_1.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">item 2"</h5>
+                                <h5 class="card-title">item 2</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_2" class="form-control" placeholder="product name 2" value="AR Digital">
+                                    <input type="text" name="name_2" class="form-control" placeholder="product name 2" value="<% if(oldData && oldData.name_2){%><%=oldData.name_2%><%}%>">
+                                    <%if(errorData && errorData.name_2){%>
+                                        <span class="text-danger">
+                                          <%=errorData.name_2.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_2" class="form-control" placeholder="product price 2" value="100">
+                                    <input type="text" name="price_2" class="form-control" placeholder="product price 2" value="<% if(oldData && oldData.name_2){%><%=oldData.name_2%><%}%>">
+                                    <%if(errorData && errorData.price_2){%>
+                                        <span class="text-danger">
+                                          <%=errorData.price_2.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_2" class="form-control" placeholder="Image Link 2" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
+                                    <input type="text" name="imglink_2" class="form-control" placeholder="Image Link 2" value="<% if(oldData && oldData.imglink_2){%><%=oldData.imglink_2%><%}%>">
+                                    <%if(errorData && errorData.imglink_2){%>
+                                        <span class="text-danger">
+                                          <%=errorData.imglink_2.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_2" class="form-control" placeholder="product Link 2" value="https://imgur.com/a/h0AYMNa">
+                                    <input type="text" name="prolink_2" class="form-control" placeholder="product Link 2" value="<% if(oldData && oldData.prolink_2){%><%=oldData.prolink_2%><%}%>">
+                                    <%if(errorData && errorData.prolink_2){%>
+                                        <span class="text-danger">
+                                          <%=errorData.prolink_2.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                             </div>
                         </div>
@@ -63,19 +107,39 @@
                                 <h5 class="card-title">item 3</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_3" class="form-control" placeholder="product name 3" value="AR Digital">
+                                    <input type="text" name="name_3" class="form-control" placeholder="product name 3" value="<% if(oldData && oldData.name_3){%><%=oldData.name_3%><%}%>">
+                                    <%if(errorData && errorData.name_3){%>
+                                        <span class="text-danger">
+                                          <%=errorData.name_3.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_3" class="form-control" placeholder="product price 3" value="100">
+                                    <input type="text" name="price_3" class="form-control" placeholder="product price 3" value="<% if(oldData && oldData.name_3){%><%=oldData.name_3%><%}%>">
+                                    <%if(errorData && errorData.price_3){%>
+                                        <span class="text-danger">
+                                          <%=errorData.price_3.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_3" class="form-control" placeholder="Image Link 3" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
+                                    <input type="text" name="imglink_3" class="form-control" placeholder="Image Link 3" value="<% if(oldData && oldData.imglink_3){%><%=oldData.imglink_3%><%}%>">
+                                    <%if(errorData && errorData.imglink_3){%>
+                                        <span class="text-danger">
+                                          <%=errorData.imglink_3.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_3" class="form-control" placeholder="product Link 3" value="https://imgur.com/a/h0AYMNa">
+                                    <input type="text" name="prolink_3" class="form-control" placeholder="product Link 3" value="<% if(oldData && oldData.prolink_3){%><%=oldData.prolink_3%><%}%>">
+                                    <%if(errorData && errorData.prolink_3){%>
+                                        <span class="text-danger">
+                                          <%=errorData.prolink_3.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                             </div>
                         </div>
@@ -84,19 +148,39 @@
                                 <h5 class="card-title">item 4</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_4" class="form-control" placeholder="product name 4" value="AR Digital">
+                                    <input type="text" name="name_4" class="form-control" placeholder="product name 4" value="<% if(oldData && oldData.name_4){%><%=oldData.name_4%><%}%>">
+                                    <%if(errorData && errorData.name_4){%>
+                                        <span class="text-danger">
+                                          <%=errorData.name_4.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_4" class="form-control" placeholder="product price 4" value="100">
+                                    <input type="text" name="price_4" class="form-control" placeholder="product price 4" value="<% if(oldData && oldData.name_4){%><%=oldData.name_4%><%}%>">
+                                    <%if(errorData && errorData.price_4){%>
+                                        <span class="text-danger">
+                                          <%=errorData.price_4.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_4" class="form-control" placeholder="Image Link 4" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
+                                    <input type="text" name="imglink_4" class="form-control" placeholder="Image Link 4" value="<% if(oldData && oldData.imglink_4){%><%=oldData.imglink_4%><%}%>">
+                                    <%if(errorData && errorData.imglink_4){%>
+                                        <span class="text-danger">
+                                          <%=errorData.imglink_4.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_4" class="form-control" placeholder="product Link 4" value="https://imgur.com/a/h0AYMNa">
+                                    <input type="text" name="prolink_4" class="form-control" placeholder="product Link 4" value="<% if(oldData && oldData.prolink_4){%><%=oldData.prolink_4%><%}%>">
+                                    <%if(errorData && errorData.prolink_4){%>
+                                        <span class="text-danger">
+                                          <%=errorData.prolink_4.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                             </div>
                         </div>
@@ -105,19 +189,39 @@
                                 <h5 class="card-title">item 5</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_5" class="form-control" placeholder="product name 5" value="AR Digital">
+                                    <input type="text" name="name_5" class="form-control" placeholder="product name 5" value="<% if(oldData && oldData.name_5){%><%=oldData.name_5%><%}%>">
+                                    <%if(errorData && errorData.name_5){%>
+                                        <span class="text-danger">
+                                          <%=errorData.name_5.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_5" class="form-control" placeholder="product price 5" value="100">
+                                    <input type="text" name="price_5" class="form-control" placeholder="product price 5" value="<% if(oldData && oldData.name_5){%><%=oldData.name_5%><%}%>">
+                                    <%if(errorData && errorData.price_5){%>
+                                        <span class="text-danger">
+                                          <%=errorData.price_5.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_5" class="form-control" placeholder="Image Link 5" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
+                                    <input type="text" name="imglink_5" class="form-control" placeholder="Image Link 5" value="<% if(oldData && oldData.imglink_5){%><%=oldData.imglink_5%><%}%>">
+                                    <%if(errorData && errorData.imglink_5){%>
+                                        <span class="text-danger">
+                                          <%=errorData.imglink_5.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_5" class="form-control" placeholder="product Link 5" value="https://imgur.com/a/h0AYMNa">
+                                    <input type="text" name="prolink_5" class="form-control" placeholder="product Link 5" value="<% if(oldData && oldData.prolink_5){%><%=oldData.prolink_5%><%}%>">
+                                    <%if(errorData && errorData.prolink_5){%>
+                                        <span class="text-danger">
+                                          <%=errorData.prolink_5.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                             </div>
                         </div>
@@ -126,19 +230,39 @@
                                 <h5 class="card-title">item 6</h5>
                                 <div class="col-12">
                                     <label class="form-label">Producat Name</label>
-                                    <input type="text" name="name_6" class="form-control" placeholder="product name 6" value="AR Digital">
+                                    <input type="text" name="name_6" class="form-control" placeholder="product name 6" value="<% if(oldData && oldData.name_6){%><%=oldData.name_6%><%}%>">
+                                    <%if(errorData && errorData.name_6){%>
+                                        <span class="text-danger">
+                                          <%=errorData.name_6.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Price</label>
-                                    <input type="text" name="price_6" class="form-control" placeholder="product price 6" value="100">
+                                    <input type="text" name="price_6" class="form-control" placeholder="product price 6" value="<% if(oldData && oldData.name_6){%><%=oldData.name_6%><%}%>">
+                                    <%if(errorData && errorData.price_6){%>
+                                        <span class="text-danger">
+                                          <%=errorData.price_6.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Image Link</label>
-                                    <input type="text" name="imglink_6" class="form-control" placeholder="Image Link 6" value="https://media-hosting.imagekit.io//546859bb613442df/Screenshot%202024-12-08%20180106.png?Expires=1837344497&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=D4Yl1x6hrGm1r2DQt1pWJups6GvhNVA~JQ8hb7Het92uXYya~g8E9YuPiFEbU8xgPDt6xSSKQeI3t8T9QL5C6ud8~piAGR-qdgCP2S7yy-OQily1swQpRMJrK8q9xBSmwp04m9Ku3kIpmwUZeQ5IdzB5Utrw4CWgOz8SklgnVmbKnQZpQccQuYMqHGmVpdKQvR1N6VyVcfDr79IkqsyLmYTHte2ERDNxM~5xfq6N-AI~O~XpDvlklFuyeoRwjgvksrFldW8JfvdI9kHiXvpSpi216ojIiTuz5Pob4i-6ClXkc2C5R4aX7XU188458j1IuhwdVzi4joLz8fHeVP-SGg__">
+                                    <input type="text" name="imglink_6" class="form-control" placeholder="Image Link 6" value="<% if(oldData && oldData.imglink_6){%><%=oldData.imglink_6%><%}%>">
+                                    <%if(errorData && errorData.imglink_6){%>
+                                        <span class="text-danger">
+                                          <%=errorData.imglink_6.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Product Link</label>
-                                    <input type="text" name="prolink_6" class="form-control" placeholder="product Link 6" value="https://imgur.com/a/h0AYMNa">
+                                    <input type="text" name="prolink_6" class="form-control" placeholder="product Link 6" value="<% if(oldData && oldData.prolink_6){%><%=oldData.prolink_6%><%}%>">
+                                    <%if(errorData && errorData.prolink_6){%>
+                                        <span class="text-danger">
+                                          <%=errorData.prolink_6.msg%>
+                                        </span>
+                                        <%}%>
                                 </div>
                             </div>
                         </div>

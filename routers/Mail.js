@@ -6,16 +6,44 @@ const routes = express.Router()
 
 const SendMailCtrl = require('../controlers/Mail')
 
+const { check } = require('express-validator');
 
 routes.get('/', SendMailCtrl.SendMailpage)
 
 routes.post('/sendmail', SendMailCtrl.SendMails)
 
-routes.get('/additempage', (req, res) => {
-    return res.render('Mail/additems', { user: req.user })
-})
+routes.get('/additempage', SendMailCtrl.AddItemPage)
 
-routes.post('/additem', SendMailCtrl.AddItem)
+routes.post('/additem', [
+    check('name_1').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
+    check('name_2').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
+    check('name_3').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
+    check('name_4').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
+    check('name_5').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
+    check('name_6').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
+
+    check('price_1').notEmpty().withMessage('price required'),
+    check('price_2').notEmpty().withMessage('price required'),
+    check('price_3').notEmpty().withMessage('price required'),
+    check('price_4').notEmpty().withMessage('price required'),
+    check('price_5').notEmpty().withMessage('price required'),
+    check('price_6').notEmpty().withMessage('price required'),
+
+    check('prolink_1').notEmpty().withMessage('product link required'),
+    check('prolink_2').notEmpty().withMessage('product link required'),
+    check('prolink_3').notEmpty().withMessage('product link required'),
+    check('prolink_4').notEmpty().withMessage('product link required'),
+    check('prolink_5').notEmpty().withMessage('product link required'),
+    check('prolink_6').notEmpty().withMessage('product link required'),
+
+    check('imglink_1').notEmpty().withMessage('image link required'),
+    check('imglink_2').notEmpty().withMessage('image link required'),
+    check('imglink_3').notEmpty().withMessage('image link required'),
+    check('imglink_4').notEmpty().withMessage('image link required'),
+    check('imglink_5').notEmpty().withMessage('image link required'),
+    check('imglink_6').notEmpty().withMessage('image link required')
+
+], SendMailCtrl.AddItem)
 
 routes.get('/addemailpage', passport.checkAuthUser, SendMailCtrl.AddMailPage)
 

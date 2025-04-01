@@ -6,6 +6,7 @@ const EmailModel = require('../models/EmailModel')
 const EmailActivity = require('../models/EmailActivity')
 const StateModel = require('../models/State')
 const CityModel = require('../models/City')
+const error = require('../models/Error')
 
 // auth
 module.exports.loginpage = async (req, res) => {
@@ -105,8 +106,6 @@ module.exports.Deshbord = async (req, res) => {
     try {
         //Mail counting
         let CountMail = await EmailModel.find().countDocuments()
-        let CountState = await StateModel.find().countDocuments()
-        let CountCity = await CityModel.find().countDocuments()
 
         // Sending Mail
         let today = new Date()
@@ -135,18 +134,6 @@ module.exports.Profile = async (req, res) => {
     }
 }
 
-module.exports.AddData = async (req, res) => {
-    try {
-        const State = await StateModel.find({ status: true })
-
-        return res.render('Admin/AddAdmin', { user: req.user, State })
-    }
-    catch (err) {
-        console.log(err);
-        return res.redirect('back')
-    }
-}
-
 module.exports.InsertAdmin = async (req, res) => {
     try {
         let checkmail = await AdminModel.find({ email: req.body.email }).countDocuments()
@@ -154,14 +141,15 @@ module.exports.InsertAdmin = async (req, res) => {
             if (req.body.password == req.body.conform_password) {
                 req.body.status = true
                 req.body.role = 'user'
-
+                
                 if (req.file) {
                     req.body.image = AdminModel.imgpath + '/' + req.file.filename;
                 }
-
+                
                 let addadmin = await AdminModel.create(req.body)
                 if (addadmin) {
                     await EmailActivity.create({ user: addadmin.id, year: 0, today: 0 })
+                    await error.create({user: addadmin.id,error:200})
                     console.log('admin is added');
                     return res.redirect('/signout')
                 }
@@ -179,36 +167,6 @@ module.exports.InsertAdmin = async (req, res) => {
             console.log('email is alredy register');
             return res.redirect('back')
         }
-    }
-    catch (err) {
-        console.log(err);
-        return res.redirect('back')
-    }
-}
-
-module.exports.ViewAdmin = async (req, res) => {
-    try {
-        let AdminData = await AdminModel.find()
-
-        return res.render('Admin/ViewAdmin', {
-            user: req.user,
-            AdminData
-        })
-    }
-    catch (err) {
-        console.log(err);
-        return res.redirect('back')
-    }
-}
-
-module.exports.UpdateAdminPage = async (req, res) => {
-    try {
-        let AdminData = await AdminModel.findById(req.query.id)
-
-        return res.render('Admin/EditAdmin', {
-            user: req.user,
-            AdminData
-        })
     }
     catch (err) {
         console.log(err);
