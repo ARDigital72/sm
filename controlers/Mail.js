@@ -208,236 +208,86 @@ module.exports.AddItem = async (req, res) => {
     }
 }
 
-async function sendingMail(item, product, checkuserdata) {
-    console.warn(item,checkuserdata);
+async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) {   
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
         secure: false,
         auth: {
             user: checkuserdata.email,
-            pass: checkuserdata.key
+            pass: "cszmrbtlfhypuhfe" 
         },
     });
 
-    const info = await transporter.sendMail({
-        from: checkuserdata.email,
-        to: item,
-        subject: "AR Digital Shop",
-        text: "AR Digital Shop",
-        html: `
-            <!DOCTYPE html>
-            <html>
-
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Exclusive Deals from Crete!</title>
-                <style>
-                    /* General styles */
-                    body, table, td, a {
-                        font-family: Arial, sans-serif;
-                        margin: 0;
-                        padding: 0;
-                        color: #333;
-                    }
-
-                    img {
-                        max-width: 100%;
-                        height: auto;
-                        display: block;
-                    }
-
-                    table {
-                        border-spacing: 0;
-                        width: 100%;
-                    }
-
-                    /* Container */
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        background-color: #ffffff;
-                        padding: 20px;
-                        border-radius: 8px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    }
-
-                    .header {
-                        text-align: center;
-                        background-color: #007b5e;
-                        color: white;
-                        padding: 15px;
-                        border-radius: 8px 8px 0 0;
-                    }
-
-                    .header h2 {
-                        font-size: 24px;
-                        margin: 0;
-                    }
-
-                    .products {
-                        display: block;
-                        padding: 10px 0;
-                    }
-
-                    .product {
-                        text-align: center;
-                        padding: 10px;
-                    }
-
-                    .product h3 {
-                        font-size: 18px;
-                        color: #333;
-                    }
-
-                    .product p {
-                        color: #666;
-                        font-size: 16px;
-                    }
-
-                    .cta {
-                        text-align: center;
-                        margin: 20px 0;
-                    }
-
-                    .cta a {
-                        background: #007b5e;
-                        color: white;
-                        padding: 12px 25px;
-                        text-decoration: none;
-                        border-radius: 5px;
-                        display: inline-block;
-                        font-size: 16px;
-                    }
-
-                    .footer {
-                        text-align: center;
-                        padding: 15px;
-                        font-size: 12px;
-                        color: #666;
-                        margin-top: 20px;
-                    }
-
-                    /* Responsive Styles */
-                    @media screen and (max-width: 600px) {
-                        .product {
-                            width: 100% !important;
-                            display: inline-block;
-                        }
-
-                        .cta a {
-                            width: 100% !important;
-                            font-size: 18px;
-                            padding: 15px 0;
-                        }
-                    }
-
-                    /* Product Row - Two products per row */
-                    .row {
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: space-between;
-                    }
-
-                    .product {
-                        width: 48%; /* Adjust width for two products in a row */
-                        margin-bottom: 20px;
-                    }
-
-                    /* Responsive for smaller screens (one product per row) */
-                    @media screen and (max-width: 480px) {
-                        .product {
-                            width: 100% !important;
-                        }
-                    }
-                </style>
-            </head>
-
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <h2>AR Digital Shop</h2>
+    try {
+        const info = await transporter.sendMail({
+            from: checkuserdata.email,
+            to: item,
+            subject: "AR Digital Shop",
+            text: "AR Digital Shop",
+            html: `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Exclusive Deals from AR Digital Shop!</title>
+                    <style>
+                        body, table, td, a { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; }
+                        img { max-width: 100%; height: auto; display: block; }
+                        table { border-spacing: 0; width: 100%; }
+                        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+                        .header { text-align: center; background-color: #007b5e; color: white; padding: 15px; border-radius: 8px 8px 0 0; }
+                        .header h2 { font-size: 24px; margin: 0; }
+                        .products { display: block; padding: 10px 0; }
+                        .product { text-align: center; padding: 10px; width: 48%; margin-bottom: 20px; }
+                        .product h3 { font-size: 18px; color: #333; }
+                        .product p { color: #666; font-size: 16px; }
+                        .cta { text-align: center; margin: 20px 0; }
+                        .cta a { background: #007b5e; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; font-size: 16px; }
+                        .footer { text-align: center; padding: 15px; font-size: 12px; color: #666; margin-top: 20px; }
+                        .row { display: flex; flex-wrap: wrap; justify-content: space-between; }
+                        @media screen and (max-width: 480px) { .product { width: 100% !important; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header"><h2>AR Digital Shop</h2></div>
+                        <div class="products">
+                            <table>
+                                <tr>
+                                    <td class="product"><a href="${product.prolink_1}"><img src="${product.imglink_1}" alt="Product 1"><h3>${product.name_1}</h3><p>${product.price_1}</p></a></td>
+                                    <td class="product"><a href="${product.prolink_2}"><img src="${product.imglink_2}" alt="Product 2"><h3>${product.name_2}</h3><p>${product.price_2}</p></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="product"><a href="${product.prolink_3}"><img src="${product.imglink_3}" alt="Product 3"><h3>${product.name_3}</h3><p>${product.price_3}</p></a></td>
+                                    <td class="product"><a href="${product.prolink_4}"><img src="${product.imglink_4}" alt="Product 4"><h3>${product.name_4}</h3><p>${product.price_4}</p></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="product"><a href="${product.prolink_5}"><img src="${product.imglink_5}" alt="Product 5"><h3>${product.name_5}</h3><p>${product.price_5}</p></a></td>
+                                    <td class="product"><a href="${product.prolink_6}"><img src="${product.imglink_6}" alt="Product 6"><h3>${product.name_6}</h3><p>${product.price_6}</p></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="cta"><a href="#">Shop Now</a></div>
+                        <div class="footer"><p>&copy; 2025 AR Digital Shop | <a href="#">Unsubscribe</a></p></div>
                     </div>
-
-                    <div class="products">
-                        <table>
-                            <tr>
-                                <td class="product">
-                                    <a href="${product.prolink_1}">
-                                        <img src="${product.imglink_1}" alt="Product 1">
-                                        <h3>${product.name_1}</h3>
-                                        <p>${product.price_1}</p>
-                                    </a>
-                                </td>
-                                <td class="product">
-                                    <a href="${product.prolink_2}">
-                                        <img src="${product.imglink_2}" alt="Product 2">
-                                        <h3>${product.name_2}</h3>
-                                        <p>${product.price_2}</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="product">
-                                    <a href="${product.prolink_3}">
-                                        <img src="${product.imglink_3}" alt="Product 3">
-                                        <h3>${product.name_3}</h3>
-                                        <p>${product.price_3}</p>
-                                    </a>
-                                </td>
-                                <td class="product">
-                                    <a href="${product.prolink_4}">
-                                        <img src="${product.imglink_4}" alt="Product 4">
-                                        <h3>${product.name_4}</h3>
-                                        <p>${product.price_4}</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="product">
-                                    <a href="${product.prolink_5}">
-                                        <img src="${product.imglink_5}" alt="Product 5">
-                                        <h3>${product.name_5}</h3>
-                                        <p>${product.price_5}</p>
-                                    </a>
-                                </td>
-                                <td class="product">
-                                    <a href="${product.prolink_6}">
-                                        <img src="${product.imglink_6}" alt="Product 6">
-                                        <h3>${product.name_6}</h3>
-                                        <p>${product.price_6}</p>
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="cta">
-                        <a href="#">Shop Now</a>
-                    </div>
-
-                    <div class="footer">
-                        <p>&copy; 2025 Crete E-Commerce | <a href="#">Unsubscribe</a></p>
-                    </div>
-                </div>
-            </body>
-
-            </html>
-
-        `,
-    });
-
-    if (info) {
-        console.log('ok');
-        let today = new Date()
-        let Data = await EmailActivity.findById(EmailActivity_Id)
-        if (Data.updatedAt.toLocaleDateString() != today.toLocaleDateString()) {
-            await EmailActivity.findByIdAndUpdate(Data.id, { $inc: { today: 1, year: 1 } })
-        } else {
-            await EmailActivity.findByIdAndUpdate(Data.id, { $inc: { today: 1, year: 1 } })
+                </body>
+                </html>
+            `,
+        });
+        
+        if (info) {
+            let today = new Date()
+            let Data = await EmailActivity.findById(EmailActivity_Id)
+            if (Data.updatedAt.toLocaleDateString() != today.toLocaleDateString()) {
+                await EmailActivity.findByIdAndUpdate(Data.id, { $inc: { today: 1, year: 1 } })
+            } else {
+                await EmailActivity.findByIdAndUpdate(Data.id, { $inc: { today: 1, year: 1 } })
+            }
         }
-        req.flash('success', item)
+    } catch (error) {
+        console.error(`❌ Error sending email to ${item}:`, error);
     }
 }
 

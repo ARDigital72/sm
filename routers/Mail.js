@@ -22,26 +22,26 @@ routes.post('/additem', [
     check('name_5').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
     check('name_6').notEmpty().withMessage('product name is required').isLength({ min: 2 }).withMessage('product name is minimum 2 charcter'),
 
-    check('price_1').notEmpty().withMessage('price required'),
-    check('price_2').notEmpty().withMessage('price required'),
-    check('price_3').notEmpty().withMessage('price required'),
-    check('price_4').notEmpty().withMessage('price required'),
-    check('price_5').notEmpty().withMessage('price required'),
-    check('price_6').notEmpty().withMessage('price required'),
+    check('price_1').notEmpty().withMessage('price required').isNumeric().withMessage('plase Enter Number value'),
+    check('price_2').notEmpty().withMessage('price required').isNumeric().withMessage('plase Enter Number value'),
+    check('price_3').notEmpty().withMessage('price required').isNumeric().withMessage('plase Enter Number value'),
+    check('price_4').notEmpty().withMessage('price required').isNumeric().withMessage('plase Enter Number value'),
+    check('price_5').notEmpty().withMessage('price required').isNumeric().withMessage('plase Enter Number value'),
+    check('price_6').notEmpty().withMessage('price required').isNumeric().withMessage('plase Enter Number value'),
 
-    check('prolink_1').notEmpty().withMessage('product link required'),
-    check('prolink_2').notEmpty().withMessage('product link required'),
-    check('prolink_3').notEmpty().withMessage('product link required'),
-    check('prolink_4').notEmpty().withMessage('product link required'),
-    check('prolink_5').notEmpty().withMessage('product link required'),
-    check('prolink_6').notEmpty().withMessage('product link required'),
+    check('prolink_1').notEmpty().withMessage('product link required').isURL().withMessage('Invalid URL'),
+    check('prolink_2').notEmpty().withMessage('product link required').isURL().withMessage('Invalid URL'),
+    check('prolink_3').notEmpty().withMessage('product link required').isURL().withMessage('Invalid URL'),
+    check('prolink_4').notEmpty().withMessage('product link required').isURL().withMessage('Invalid URL'),
+    check('prolink_5').notEmpty().withMessage('product link required').isURL().withMessage('Invalid URL'),
+    check('prolink_6').notEmpty().withMessage('product link required').isURL().withMessage('Invalid URL'),
 
-    check('imglink_1').notEmpty().withMessage('image link required'),
-    check('imglink_2').notEmpty().withMessage('image link required'),
-    check('imglink_3').notEmpty().withMessage('image link required'),
-    check('imglink_4').notEmpty().withMessage('image link required'),
-    check('imglink_5').notEmpty().withMessage('image link required'),
-    check('imglink_6').notEmpty().withMessage('image link required')
+    check('imglink_1').notEmpty().withMessage('image link required').isURL().withMessage('Invalid URL'),
+    check('imglink_2').notEmpty().withMessage('image link required').isURL().withMessage('Invalid URL'),
+    check('imglink_3').notEmpty().withMessage('image link required').isURL().withMessage('Invalid URL'),
+    check('imglink_4').notEmpty().withMessage('image link required').isURL().withMessage('Invalid URL'),
+    check('imglink_5').notEmpty().withMessage('image link required').isURL().withMessage('Invalid URL'),
+    check('imglink_6').notEmpty().withMessage('image link required').isURL().withMessage('Invalid URL')
 
 ], SendMailCtrl.AddItem)
 
