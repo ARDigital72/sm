@@ -105,7 +105,7 @@ module.exports.SignOut = async (req, res) => {
 module.exports.Deshbord = async (req, res) => {
     try {
         //Mail counting
-        let CountMail = await EmailModel.find().countDocuments()
+        let CountMail = await EmailModel.find({ user: req.user.id }).countDocuments()
 
         // Sending Mail
         let today = new Date()
@@ -126,7 +126,7 @@ module.exports.Deshbord = async (req, res) => {
 
 module.exports.Profile = async (req, res) => {
     try {
-        let user = await AdminModel.findById(req.user.id).populate('city').populate('state').exec()
+        let user = await AdminModel.findById(req.user.id)
         return res.render('Profile', { user })
     } catch (err) {
         console.log(err);
@@ -192,7 +192,7 @@ module.exports.UpdateAdmin = async (req, res) => {
             let UpdateAdmin = await AdminModel.findByIdAndUpdate(req.body.id, req.body)
             if (UpdateAdmin) {
                 console.log('Admin update');
-                return res.redirect('/viewadmin')
+                return res.redirect('back')
             } else {
                 console.log('Admin not update');
                 return res.redirect('back')
@@ -204,7 +204,7 @@ module.exports.UpdateAdmin = async (req, res) => {
             let UpdateAdmin = await AdminModel.findByIdAndUpdate(req.body.id, req.body)
             if (UpdateAdmin) {
                 console.log('Admin update');
-                return res.redirect('/viewadmin')
+                return res.redirect('back')
             } else {
                 console.log('Admin not update');
                 return res.redirect('back')

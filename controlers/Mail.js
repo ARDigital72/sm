@@ -48,7 +48,7 @@ module.exports.AddMail = async (req, res) => {
         //     }
         //     let EmailData = await EmailModel.create(Data)
         // })
-
+        req.body.user = req.user.id
         let EmailData = await EmailModel.create(req.body)
         if (EmailData) {
             console.log('Email add succesfully');
@@ -66,7 +66,7 @@ module.exports.AddMail = async (req, res) => {
 
 module.exports.ViewEmail = async (req, res) => {
     try {
-        let TotalEmail = await EmailModel.find().countDocuments()
+        let TotalEmail = await EmailModel.find({user:req.user.id}).countDocuments()
 
         let per_page = 1500
         let page = 1
@@ -77,8 +77,7 @@ module.exports.ViewEmail = async (req, res) => {
         }
 
 
-        let EmailData = await EmailModel.find().skip((page - 1) * per_page).limit(per_page).populate('city').populate('state').exec()
-
+        let EmailData = await EmailModel.find({user:req.user.id}).skip((page - 1) * per_page).limit(per_page).populate('city').populate('state').populate('user').exec()
         return res.render('Mail/Viewmail', {
             user: req.user, EmailData, totalPage, page, per_page
         })
@@ -176,8 +175,8 @@ module.exports.AddItem = async (req, res) => {
                 if (checkuserdata.key == user.key) {
                     let lot = user.lot
                     let limit = 500;
-                    let allemail = await EmailModel.find().skip((lot - 1) * limit).limit(limit);
-
+                    let allemail = await EmailModel.find({user:req.user.id}).skip((lot - 1) * limit).limit(limit);
+                    console.log(allemail);
                     let activity = (await EmailActivity.find({ user: checkuserdata.id }))[0]
                     let totalsend = activity.today
                     let product = req.body
@@ -208,14 +207,14 @@ module.exports.AddItem = async (req, res) => {
     }
 }
 
-async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) {   
+async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
         secure: false,
         auth: {
             user: checkuserdata.email,
-            pass: "cszmrbtlfhypuhfe" 
+            pass: "cszmrbtlfhypuhfe"
         },
     });
 
@@ -229,54 +228,144 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
                 <!DOCTYPE html>
                 <html>
                 <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Exclusive Deals from AR Digital Shop!</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                    <title>eCommerce Email</title>
                     <style>
-                        body, table, td, a { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; }
-                        img { max-width: 100%; height: auto; display: block; }
-                        table { border-spacing: 0; width: 100%; }
-                        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-                        .header { text-align: center; background-color: #007b5e; color: white; padding: 15px; border-radius: 8px 8px 0 0; }
-                        .header h2 { font-size: 24px; margin: 0; }
-                        .products { display: block; padding: 10px 0; }
-                        .product { text-align: center; padding: 10px; width: 48%; margin-bottom: 20px; }
-                        .product h3 { font-size: 18px; color: #333; }
-                        .product p { color: #666; font-size: 16px; }
-                        .cta { text-align: center; margin: 20px 0; }
-                        .cta a { background: #007b5e; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; font-size: 16px; }
-                        .footer { text-align: center; padding: 15px; font-size: 12px; color: #666; margin-top: 20px; }
-                        .row { display: flex; flex-wrap: wrap; justify-content: space-between; }
-                        @media screen and (max-width: 480px) { .product { width: 100% !important; } }
+                        :root {
+                            --primary-color: #ff6600;
+                            --background-color: RED;
+                            --text-color: #ffffff;
+                            --border-color: #ddd;
+                            --btn-radius: 8px;
+                        }
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .container {
+                            max-width: 600px;
+                            margin: auto;
+                            background: #ffffff;
+                            padding: 20px;
+                        }
+                        .header {
+                            text-align: center;
+                            background: var(--primary-color);
+                            padding: 10px;
+                            color: var(--text-color);
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+                        .product-grid {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                        }
+                        .product {
+                            width: 48%;
+                            margin-bottom: 20px;
+                            background: #fff;
+                            padding: 10px;
+                            border: 1px solid var(--border-color);
+                            text-align: center;
+                            box-sizing: border-box;
+                        }
+                        .product img {
+                            max-width: 100%;
+                            height: auto;
+                        }
+                        .btn {
+                            display: inline-block;
+                            padding: 10px;
+                            background: var(--primary-color);
+                            color: var(--text-color);
+                            text-decoration: none;
+                            margin-top: 10px;
+                            border-radius: var(--btn-radius);
+                        }
+                        .footer {
+                            text-align: center;
+                            padding: 10px;
+                            background: var(--primary-color);
+                            color: var(--text-color);
+                            margin-top: 20px;
+                        }
+                        .footer img {
+                            width: 30px;
+                            margin: 0 5px;
+                        }
+                        @media (max-width: 600px) {
+                            .product {
+                                width: 48%;
+                            }
+                        }
+                        @media (max-width: 480px) {
+                            .product {
+                                width: 100%;
+                            }
+                        }
                     </style>
                 </head>
+
                 <body>
+                    <label for="colorPicker">Choose a color:</label>
+                <input type="color" id="colorPicker" name="colorPicker">
+
                     <div class="container">
-                        <div class="header"><h2>AR Digital Shop</h2></div>
-                        <div class="products">
-                            <table>
-                                <tr>
-                                    <td class="product"><a href="${product.prolink_1}"><img src="${product.imglink_1}" alt="Product 1"><h3>${product.name_1}</h3><p>${product.price_1}</p></a></td>
-                                    <td class="product"><a href="${product.prolink_2}"><img src="${product.imglink_2}" alt="Product 2"><h3>${product.name_2}</h3><p>${product.price_2}</p></a></td>
-                                </tr>
-                                <tr>
-                                    <td class="product"><a href="${product.prolink_3}"><img src="${product.imglink_3}" alt="Product 3"><h3>${product.name_3}</h3><p>${product.price_3}</p></a></td>
-                                    <td class="product"><a href="${product.prolink_4}"><img src="${product.imglink_4}" alt="Product 4"><h3>${product.name_4}</h3><p>${product.price_4}</p></a></td>
-                                </tr>
-                                <tr>
-                                    <td class="product"><a href="${product.prolink_5}"><img src="${product.imglink_5}" alt="Product 5"><h3>${product.name_5}</h3><p>${product.price_5}</p></a></td>
-                                    <td class="product"><a href="${product.prolink_6}"><img src="${product.imglink_6}" alt="Product 6"><h3>${product.name_6}</h3><p>${product.price_6}</p></a></td>
-                                </tr>
-                            </table>
+                        <div class="header">Our Best Products</div>
+                        <div class="product-grid">
+                            <div class="product">
+                                <img src="${product.imglink_1}" alt="Product 1">
+                                <h3>${product.name_1}</h3>
+                                <p>${product.price_1}</p>
+                                <a href="${product.prolink_1}" class="btn">Buy Now</a>
+                            </div>
+                            <div class="product">
+                                <img src="${product.imglink_2}" alt="Product 2">
+                                <h3>${product.name_2}</h3>
+                                <p>${product.price_2}</p>
+                                <a href="${product.prolink_2}" class="btn">Buy Now</a>
+                            </div>
+                            <div class="product">
+                                <img src="${product.imglink_3}" alt="Product 3">
+                                <h3>${product.name_3}</h3>
+                                <p>${product.price_3}</p>
+                                <a href="${product.prolink_3}" class="btn">Buy Now</a>
+                            </div>
+                            <div class="product">
+                                <img src="${product.imglink_4}" alt="Product 4">
+                                <h3>${product.name_4}</h3>
+                                <p>${product.price_4}</p>
+                                <a href="${product.prolink_4}" class="btn">Buy Now</a>
+                            </div>
+                            <div class="product">
+                                <img src="${product.imglink_5}" alt="Product 5">
+                                <h3>${product.name_5}</h3>
+                                <p>${product.price_5}</p>
+                                <a href="${product.prolink_5}" class="btn">Buy Now</a>
+                            </div>
+                            <div class="product">
+                                <img src="${product.imglink_6}" alt="Product 6">
+                                <h3>${product.name_6}</h3>
+                                <p>${product.price_6}</p>
+                                <a href="${product.prolink_6}" class="btn">Buy Now</a>
+                            </div>
                         </div>
-                        <div class="cta"><a href="#">Shop Now</a></div>
-                        <div class="footer"><p>&copy; 2025 AR Digital Shop | <a href="#">Unsubscribe</a></p></div>
+                        <div class="footer">
+                            <p>Follow us on</p>
+                            <a href="https://www.facebook.com"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
+                            <a href="https://www.instagram.com"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
+                            <a href="https://twitter.com"><img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter"></a>
+                            <a href="https://www.linkedin.com"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+                        </div>
                     </div>
                 </body>
-                </html>
-            `,
+                </html>   
+              `,
         });
-        
+
         if (info) {
             let today = new Date()
             let Data = await EmailActivity.findById(EmailActivity_Id)
@@ -303,6 +392,6 @@ module.exports.FindCity = async (req, res) => {
 }
 
 module.exports.NumberOfMail = async (req, res) => {
-    let CountMail = await EmailModel.countDocuments({ city: req.query.City, state: req.query.State }).populate('city').populate('state').exec()
+    let CountMail = await EmailModel.countDocuments({user:req.user.id, city: req.query.City, state: req.query.State }).populate('city').populate('state').exec()
     return res.json(CountMail)
 }

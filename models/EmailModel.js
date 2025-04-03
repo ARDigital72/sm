@@ -9,6 +9,9 @@ const EmailSchma = mongose.Schema({
     },state:{
         type:mongose.Schema.Types.ObjectId,
         ref:'state'
+    },user:{
+        type:mongose.Schema.Types.ObjectId,
+        ref:'admin'
     }
 })
 

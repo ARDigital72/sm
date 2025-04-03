@@ -23,22 +23,11 @@ const AdminSchma = mongose.Schema({
     password: {
         type: String
     },
-    gender: {
-        type: String
-    },
     role: {
         type: String
     },
     image: {
         type: String
-    },
-    state: {
-        type: mongose.Schema.Types.ObjectId,
-        ref: 'state'
-    },
-    city: {
-        type: mongose.Schema.Types.ObjectId,
-        ref: 'city'
     },
     twitter: {
         type: String

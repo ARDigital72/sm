@@ -4,14 +4,23 @@
 
         <div class="pagetitle d-flex align-items-center justify-content-between">
             <h1>View Mail</h1>
-            
+
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item <%if(page<3){%><%="disabled"%><%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)-2%>">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)-1%>"><%=parseInt(page)-1%></a></li>
-                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)%>"><%=parseInt(page)%></a></li>
-                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+1%>"><%=parseInt(page)+1%></a></li>
-                    <li class="page-item <%if(page > totalPage-2){%><%="disabled"%><%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+2%>">Next</a></li>
+                    <li class="page-item <%if(page<3){%><%=" disabled"%>
+                        <%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)-2%>">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link"
+                            href="/sendmail/viewemail/?page=<%=parseInt(page)-1%>"><%=parseInt(page)-1%></a></li>
+                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)%>">
+                            <%=parseInt(page)%>
+                        </a></li>
+                    <li class="page-item"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+1%>">
+                            <%=parseInt(page)+1%>
+                        </a></li>
+                    <li class="page-item <%if(page > totalPage-2){%><%=" disabled"%>
+                        <%}%>"><a class="page-link" href="/sendmail/viewemail/?page=<%=parseInt(page)+2%>">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -32,7 +41,7 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">city</th>
                                         <th scope="col">state</th>
-                                        <th scope="col">gender</th>
+                                        <th scope="col">ACtion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,9 +61,6 @@
                                             </td>
                                             <td scope="col"><a href="/sendmail/deletemail/?id=<%=item.id%>"
                                                     class="btn btn-danger">Delete</a></td>
-                                            <td scope="col"><a href="/sendmail/done"
-                                                    class="btn btn-success">Send</a></td>
-
                                         </tr>
                                         <%})%>
                                 </tbody>
