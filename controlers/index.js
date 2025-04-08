@@ -185,7 +185,6 @@ module.exports.UpdateAdmin = async (req, res) => {
             }
             catch (err) {
                 console.log('img not found');
-                return res.redirect('back')
             }
             req.body.image = AdminModel.imgpath + '/' + req.file.filename
 

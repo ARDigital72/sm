@@ -20,7 +20,7 @@
 
               <img src="<%=user.image%>" alt="Profile" class="rounded-circle">
               <h2><%=user.name%></h2>
-              <h3><%=user.role%></h3>
+              <h3><%if(user.role=='user'){%><%=user.role%><%}else{%><%='Admin'%><%}%></h3>
               <div class="social-links mt-2">
                 <a href="<%=user.twitter%>" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="<%=user.facebook%>" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -63,7 +63,7 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Role</div>
-                    <div class="col-lg-9 col-md-8"><%=user.role%></div>
+                    <div class="col-lg-9 col-md-8"><%if(user.role=='user'){%><%=user.role%><%}else{%><%='Admin'%><%}%></div>
                   </div>
 
                   <div class="row">

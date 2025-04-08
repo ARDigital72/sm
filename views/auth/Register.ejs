@@ -6,9 +6,6 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Register</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
   <!-- Favicons -->
   <link href="/img/logo.png" rel="icon">
   <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -28,16 +25,9 @@
   <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
+  <!-- Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Updated: Apr 20 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -64,19 +54,7 @@
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                   </div>
 
-                  <form action="/addadmin" method="post" class="row g-3 needs-validation" enctype="multipart/form-data">
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your phone</label>
-                      <input type="number" name="phone" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                    </div>
-                    
+                  <form action="/addadmin" method="post" class="row g-3 needs-validation" enctype="multipart/form-data">                   
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
@@ -84,14 +62,9 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourkey" class="form-label">Your key</label>
+                      <label for="yourkey" class="form-label">SMTP Code</label>
                       <input type="key" name="key" class="form-control" id="yourkey" required>
                       <div class="invalid-feedback">Please enter a valid key adddress!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="inputNumber" class="col-form-label">File Upload</label>
-                      <input class="form-control" type="file" name="image">
                     </div>
 
                     <div class="col-12">
@@ -109,6 +82,7 @@
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Create Account</button>
                     </div>
+
                     <div class="col-12">
                       <p class="small mb-0">Already have an account? <a href="/">Log in</a></p>
                     </div>

@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'assets')))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use(session({
-    // name: "AR",
+    name: "AR",
     secret: 'ARPATEL',
     resave: false,
     saveuninitilized: false,
