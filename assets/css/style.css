@@ -1231,3 +1231,38 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+
+/* coustom css  */
+.notify {
+  position: fixed ;
+  right: 5px;
+  top: 70px;
+  z-index: 99 !important;
+}
+
+.notify > div {
+  padding: 10px 15px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 14px;
+  background: rgba(0,0,0,0.9);
+}
+
+.notify > div.success {
+  background: #28a745;
+}
+
+.notify > div.error {
+  background: #dc3545;
+}
+
+.notify > div.warning {
+  background: #ffc107;
+  color: #000;
+}
+
+.notify > div.info {
+  background: #17a2b8;
+}

@@ -16,7 +16,7 @@ routes.post('/login', passport.authenticate('local', { failureredirect: '/loginp
 
 routes.get('/register', mainCtrl.Register)
 
-routes.post('/addadmin', AdminModel.uploadimg, mainCtrl.InsertAdmin)
+routes.post('/addadmin', mainCtrl.InsertAdmin)
 
 // after Login or Register
 routes.get('/changpassword', Error, passport.checkAuthUser, mainCtrl.ChangPasswordPage)
@@ -30,7 +30,7 @@ routes.get('/', Error, passport.checkAuthUser, mainCtrl.Deshbord)
 
 routes.get('/profile', Error, passport.checkAuthUser, mainCtrl.Profile)
 
-routes.post('/updateadmin', Error, AdminModel.uploadimg, passport.checkAuthUser, mainCtrl.UpdateAdmin)
+routes.post('/updateadmin', Error, passport.checkAuthUser, mainCtrl.UpdateAdmin)
 
 routes.get('/deleteadmin', Error, passport.checkAuthUser, mainCtrl.DeleteAdmin)//logout
 

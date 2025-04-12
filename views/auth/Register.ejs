@@ -54,7 +54,7 @@
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                   </div>
 
-                  <form action="/addadmin" method="post" class="row g-3 needs-validation" enctype="multipart/form-data">                   
+                  <form action="/addadmin" method="post" class="row g-3 needs-validation">                   
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
@@ -115,21 +115,6 @@
 
   <!-- ajex -->
   <script src="/js/jquery.min.js"></script>
-  <script>
-    function selectcity() {
-      let State = document.getElementById('State').value;
-
-      $.ajax({
-        url: '/sendmail/findcity',
-        data: {
-          State
-        },
-        success: function (res) {
-          $('#city').html(res)
-        }
-      });
-    }
-  </script>
 
 </body>
 

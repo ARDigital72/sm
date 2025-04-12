@@ -10,127 +10,121 @@
         </ol>
       </nav>
     </div>
+    
+        <section class="section dashboard">
+          <div class="row">
 
-    <%if(locals.flash.success.length){%>
-      <div class="alert alert-success">
-          <p class="mb-0"><%=locals.flash.success%></p>
-      </div>
-      <%}%>
-
-    <section class="section dashboard">
-      <div class="row">
-
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card sales-card">
-            <div class="card-body">
-              <h5 class="card-title">Total Mail</h5>
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-envelope"></i>
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Mail</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-envelope"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>
+                        <%=CountMail%>
+                      </h6>
+                    </div>
+                  </div>
                 </div>
-                <div class="ps-3">
-                  <h6>
-                    <%=CountMail%>
-                  </h6>
+
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Today</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-calendar-event"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>
+                        <%=today%> / 500
+                      </h6>
+                      <span class="text-danger small pt-1 fw-bold"><%=500-parseInt(today)%> Left</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Year</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-calendar3"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>
+                        <%=year%>
+                      </h6>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
           </div>
-        </div>
+        </section>
 
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card customers-card">
-            <div class="card-body">
-              <h5 class="card-title">Today</h5>
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-calendar-event"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>
-                    <%=today%> / 500
-                  </h6>
-                  <span class="text-danger small pt-1 fw-bold"><%=500-parseInt(today)%> Left</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card revenue-card">
-            <div class="card-body">
-              <h5 class="card-title">Year</h5>
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-calendar3"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>
-                    <%=year%>
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="dashboard">
-      <div class="row">
-        <div class="col-md-6 col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Find Email</h5>
-              <form>
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">State</label>
-                  <div class="col-sm-10">
-                    <select name="state" id="State" class="form-select" onchange="selectcity()">
-                      <option value="">--select State--</option>
-                      <% State.map((item,i)=>{%>
-                          <option value="<%=item.id%>">
+        <section class="dashboard">
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Find Email</h5>
+                  <form>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">State</label>
+                      <div class="col-sm-10">
+                        <select name="state" id="State" class="form-select" onchange="selectcity()">
+                          <option value="">--select State--</option>
+                          <% State.map((item,i)=>{%>
+                            <option value="<%=item.id%>">
                               <%=item.state%>
-                          </option>
-                          <%}) %>
-                  </select>
-                  </div>
+                            </option>
+                            <%}) %>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">City</label>
+                      <div class="col-sm-10">
+                        <select name="city" class="form-select" id="city" onchange="Numberofmail()">
+                          <option value="">--select city--</option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">City</label>
-                  <div class="col-sm-10">
-                    <select name="city" class="form-select" id="city" onchange="Numberofmail()">
-                      <option value="">--select city--</option>
-                  </select>
-                  </div>
-                </div>
-              </form>    
+              </div>
             </div>
-          </div>    
-        </div>
-    
-        <div class="col-md-6 col-12">
-          <div class="card info-card sales-card">
-            <div class="card-body">
-              <h5 class="card-title">Total Mail</h5>
-              <div class="d-flex align-items-center py-3">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-envelope"></i>
-                </div>
-                <div class="ps-3">
-                  <h6 id="mail">
-                    0
-                  </h6>
+
+            <div class="col-md-6 col-12">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Mail</h5>
+                  <div class="d-flex align-items-center py-3">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-envelope"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="mail">
+                        0
+                      </h6>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-    
+        </section>
+
   </main>
   <%- include('layouts/footer.ejs')%>

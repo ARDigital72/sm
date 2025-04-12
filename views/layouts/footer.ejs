@@ -11,7 +11,8 @@
     Designed by <a href="https://linktr.ee/ardigital72?utm_source=linktree_admin_share">AR</a>
   </div>
   <div class="text-center mt-3">
-    <a href="https://www.instagram.com/ar_deals_72?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="mx-1"><i class="ri-instagram-fill fs-5"></i></a>
+    <a href="https://www.instagram.com/ar_deals_72?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+      class="mx-1"><i class="ri-instagram-fill fs-5"></i></a>
     <a href="javascript:void(0)" class="mx-1"><i class="ri-youtube-fill fs-5"></i></a>
     <a href="javascript:void(0)" class="mx-1"><i class="ri-telegram-fill fs-5"></i></a>
     <a href="javascript:void(0)" class="mx-1"><i class="ri-linkedin-box-fill fs-5"></i></a>
@@ -20,6 +21,7 @@
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
     class="bi bi-arrow-up-short"></i></a>
+
 
 <!-- Vendor JS Files -->
 <script src="/vendor/apexcharts/apexcharts.min.js"></script>
@@ -36,6 +38,7 @@
 
 
 <!-- ajex cdn -->
+
 <script src="/js/jquery.min.js"></script>
 
 <script>
@@ -60,13 +63,12 @@
     $.ajax({
       url: '/sendmail/numberofcity',
       data: {
-        State,City
+        State, City
       },
       success: function (res) {
         $('#mail').html(res)
       }
     });
-
   }
 </script>
 

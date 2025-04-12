@@ -5,6 +5,8 @@ const StateModle = require('../models/State')
 const CityModle = require('../models/City')
 const { validationResult } = require('express-validator')
 // const ExtraCounting = require('../models/ExtraCounting')
+
+const bcrypt = require('bcrypt')
 const nodemailer = require("nodemailer");
 const Email = require('../models/EmailModel');
 
@@ -111,10 +113,10 @@ module.exports.SendMails = async (req, res) => {
     try {
         let checkuser = await AdminModel.find({ email: req.body.email }).countDocuments()
         if (checkuser == 1) {
-            let checkuserdata = await AdminModel.find({ email: req.body.email })
-            checkuserdata = checkuserdata[0]
-
-            if (checkuserdata.password == req.body.password) {
+            let checkuserdata = (await AdminModel.find({ email: req.body.email }))[0]
+            // checkuserdata = checkuserdata[0]
+            let checkuserpassword = await bcrypt.compare(req.body.password, checkuserdata.password)
+            if (checkuserpassword) {
                 let lot = parseInt(req.body.numberofmail);
 
                 checkuserdata = {
@@ -375,8 +377,9 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
                 await EmailActivity.findByIdAndUpdate(Data.id, { $inc: { today: 1, year: 1 } })
             }
         }
-    } catch (error) {
-        console.error(`❌ Error sending email to ${item}:`, error);
+    } catch (err) {
+        console.log(err);
+        return res.redirect('back')
     }
 }
 
