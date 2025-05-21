@@ -1,13 +1,6 @@
-const mongose = require('mongoose')
+const mongoose = require('mongoose');
 
-const path = require('path')
-
-// const multer = require('multer')
-// const { type } = require('os')
-
-// const imgpath = '/uploads/user'
-
-const AdminSchma = mongose.Schema({
+const AdminSchema = mongoose.Schema({
     name: {
         type: String
     },
@@ -43,20 +36,7 @@ const AdminSchma = mongose.Schema({
     }
 }, {
     timestamps: true
-})
+});
 
-// const uploadimg = multer.diskStorage({
-//     destination: (req, file, cd) => {
-//         cd(null, path.join(__dirname, '..', imgpath))
-//     },
-//     filename: (req, file, cd) => {
-//         cd(null, file.fieldname + '-' + Date.now())
-//     }
-// })
-
-// AdminSchma.statics.uploadimg = multer({ storage: uploadimg }).single('image')
-// AdminSchma.statics.imgpath = imgpath
-
-const admin = mongose.model('admin', AdminSchma)
-
-module.exports = admin
+const Admin = mongoose.model('admin', AdminSchema);
+module.exports = Admin;

@@ -1,11 +1,11 @@
-const mongose = require('mongoose')
+const mongoose = require('mongoose');
 
-const citySchma = mongose.Schema({
+const citySchema = mongoose.Schema({
     city: {
         type: String
     },
     state: {
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'state'
     },
     status: {
@@ -14,8 +14,7 @@ const citySchma = mongose.Schema({
     }
 }, {
     timestamps: true
-})
+});
 
-const city = mongose.model('city', citySchma)
-
-module.exports = city
+const City = mongoose.model('city', citySchema);
+module.exports = City;

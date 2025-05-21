@@ -1,18 +1,19 @@
-const mongose = require('mongoose')
+const mongoose = require('mongoose');
 
-const stateSchma = mongose.Schema({
+const stateSchema = mongoose.Schema({
     state: {
         type: String
-    }, city: {
+    },
+    city: {
         type: Array
-    }, status: {
+    },
+    status: {
         type: Boolean,
         default: true
     }
 }, {
     timestamps: true
-})
+});
 
-const state = mongose.model('state', stateSchma)
-
-module.exports = state
+const State = mongoose.model('state', stateSchema);
+module.exports = State;

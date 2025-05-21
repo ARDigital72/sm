@@ -1,30 +1,28 @@
+function getReferer(req) {
+   return req.get('Referer') || '/';
+}
 const AdminModel = require('../models/AdminModel')
 const EmailModel = require('../models/EmailModel')
 const EmailActivity = require('../models/EmailActivity')
 const StateModle = require('../models/State')
 const CityModle = require('../models/City')
 const { validationResult } = require('express-validator')
-// const ExtraCounting = require('../models/ExtraCounting')
-
 const bcrypt = require('bcrypt')
 const nodemailer = require("nodemailer");
-const Email = require('../models/EmailModel');
 
+// Render Send Mail Page for the User
 module.exports.SendMailpage = async (req, res) => {
     try {
-        return res.render('Mail/Sendmail', { user: req.user, })
-    }
-    catch (err) {
+        return res.render('Mail/Sendmail', { user: req.user });
+    } catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req));
     }
 }
-
-// add Mail Adress
+// Render AddMailPage with active states
 module.exports.AddMailPage = async (req, res) => {
     try {
         let State = await StateModle.find({ status: true })
-
         return res.render('Mail/AddMail', {
             user: req.user,
             State
@@ -32,133 +30,101 @@ module.exports.AddMailPage = async (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req))
     }
 }
-
+// Add Email Address to Database
 module.exports.AddMail = async (req, res) => {
     try {
-        // let abc = ['arpitguna150@gmail.com', 'arpitguna150@gmail.com', 'arpitguna150@gmail.com']
-
-        // abc = [...new Set(abc)]
-
-        // abc.map(async (item, i) => {
-        //     let Data = {
-        //         email: item,
-        //         state: req.body.state,
-        //         city: req.body.city
-        //     }
-        //     let EmailData = await EmailModel.create(Data)
-        // })
         req.body.user = req.user.id
         let EmailData = await EmailModel.create(req.body)
         if (EmailData) {
-            console.log('Email add succesfully');
-            return res.redirect('back')
+            console.log('Email added successfully');
+            return res.redirect(getReferer(req))
         } else {
-            console.log('something wrong');
-            return res.redirect('back')
+            console.log('Something went wrong');
+            return res.redirect(getReferer(req))
         }
     }
     catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req))
     }
 }
-
+// View All Emails for the User
 module.exports.ViewEmail = async (req, res) => {
     try {
-        let TotalEmail = await EmailModel.find({user:req.user.id}).countDocuments()
+        let TotalEmail = await EmailModel.find({ user: req.user.id }).countDocuments();
+        let per_page = 1500, page = req.query.page || 1, totalPage = Math.ceil(TotalEmail / per_page);
 
-        let per_page = 1500
-        let page = 1
-        let totalPage = Math.ceil(TotalEmail / per_page)
+        let EmailData = await EmailModel.find({ user: req.user.id })
+            .skip((page - 1) * per_page)
+            .limit(per_page)
+            .populate('city state user')
+            .exec();
 
-        if (req.query.page) {
-            page = req.query.page
-        }
-
-
-        let EmailData = await EmailModel.find({user:req.user.id}).skip((page - 1) * per_page).limit(per_page).populate('city').populate('state').populate('user').exec()
-        return res.render('Mail/Viewmail', {
-            user: req.user, EmailData, totalPage, page, per_page
-        })
+        return res.render('Mail/Viewmail', { user: req.user, EmailData, totalPage, page, per_page });
     }
     catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req));
     }
 }
-
+// Delete Email by ID
 module.exports.DeleteMail = async (req, res) => {
     try {
-        let DeleteAdmin = await EmailModel.findByIdAndDelete(req.query.id)
-        if (DeleteAdmin) {
-            console.log('delete admin');
-            return res.redirect('back')
-        }
-        else {
-            console.log('something wrong');
-            return res.redirect('back')
-        }
-    }
-    catch (err) {
+        let DeleteAdmin = await EmailModel.findByIdAndDelete(req.query.id);
+        console.log(DeleteAdmin ? 'Email deleted successfully' : 'Error occurred');
+        return res.redirect(getReferer(req));
+    } catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req));
     }
 }
-
-//send mail
+// Send Mail logic for sender login
 module.exports.SendMails = async (req, res) => {
     try {
-        let checkuser = await AdminModel.find({ email: req.body.email }).countDocuments()
-        if (checkuser == 1) {
-            let checkuserdata = (await AdminModel.find({ email: req.body.email }))[0]
-            // checkuserdata = checkuserdata[0]
-            let checkuserpassword = await bcrypt.compare(req.body.password, checkuserdata.password)
+        let checkuser = await AdminModel.find({ email: req.body.email }).countDocuments();
+        
+        // Check if user exists
+        if (checkuser === 1) {
+            let checkuserdata = await AdminModel.findOne({ email: req.body.email });
+
+            // Compare entered password with stored password
+            let checkuserpassword = await bcrypt.compare(req.body.password, checkuserdata.password);
+
             if (checkuserpassword) {
                 let lot = parseInt(req.body.numberofmail);
+                checkuserdata = { email: checkuserdata.email, key: checkuserdata.key, lot };
 
-                checkuserdata = {
-                    email: checkuserdata.email,
-                    key: checkuserdata.key,
-                    lot: lot
-                }
+                res.cookie("senderuser", JSON.stringify(checkuserdata));  // Store user data in cookie
+                req.flash('success', "Sender login successfully");
 
-                res.cookie("senderuser", JSON.stringify(checkuserdata));
-
-                req.flash('success', "sender login successfully")
                 return res.redirect('/sendmail/additempage');
             } else {
-                console.log('worng password');
-                return res.redirect('back')
+                console.log('Incorrect password');
+                return res.redirect(getReferer(req));
             }
-        } else if (checkuser == 0) {
-            console.log('email is not register');
-            return res.redirect('back')
         } else {
-            console.log('something wrong');
-            return res.redirect('back')
+            console.log('Email not registered');
+            return res.redirect(getReferer(req));
         }
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
     }
 }
-
+// Render Add Item Page for Mail
 module.exports.AddItemPage = async (req, res) => {
     try {
         return res.render('Mail/additems', {
-            user: req.user, errorData: [],
-            oldData: []
-        })
-    }
-    catch (err) {
+            user: req.user, errorData: [], oldData: []
+        });
+    } catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req));
     }
 }
-
+// Add Item for Mail and Send Mails to Users
 module.exports.AddItem = async (req, res) => {
     try {
         let error = validationResult(req);
@@ -167,45 +133,44 @@ module.exports.AddItem = async (req, res) => {
                 user: req.user,
                 errorData: error.mapped(),
                 oldData: req.body
-            })
+            });
         } else {
-            user = JSON.parse(req.cookies.senderuser)
-            res.clearCookie('senderuser')
-            let checkuser = await AdminModel.find({ email: user.email }).countDocuments()
+            user = JSON.parse(req.cookies.senderuser);
+            res.clearCookie('senderuser');
+            let checkuser = await AdminModel.find({ email: user.email }).countDocuments();
             if (checkuser == 1) {
-                let checkuserdata = (await AdminModel.find({ email: user.email }))[0]
+                let checkuserdata = (await AdminModel.find({ email: user.email }))[0];
                 if (checkuserdata.key == user.key) {
-                    let lot = user.lot
+                    let lot = user.lot;
                     let limit = 500;
-                    let allemail = await EmailModel.find({user:req.user.id}).skip((lot - 1) * limit).limit(limit);
+                    let allemail = await EmailModel.find({ user: req.user.id }).skip((lot - 1) * limit).limit(limit);
                     console.log(allemail);
-                    let activity = (await EmailActivity.find({ user: checkuserdata.id }))[0]
-                    let totalsend = activity.today
-                    let product = req.body
+                    let activity = (await EmailActivity.find({ user: checkuserdata.id }))[0];
+                    let totalsend = activity.today;
+                    let product = req.body;
 
                     allemail.map(async (item, i) => {
                         if (totalsend < 500) {
-                            sendingMail(item.email, product, user, activity.id)
+                            sendingMail(item.email, product, user, activity.id);
                         } else {
-                            return false
+                            return false;
                         }
                         totalsend++;
-                    })
+                    });
 
-                    return res.redirect('/')
+                    return res.redirect('/');
                 } else {
-                    console.log('Invaild Key');
-                    return res.redirect('back')
+                    console.log('Invalid Key');
+                    return res.redirect(getReferer(req));
                 }
             } else {
-                console.log('Invaild Email');
-                return res.redirect('back')
+                console.log('Invalid Email');
+                return res.redirect(getReferer(req));
             }
         }
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req));
     }
 }
 
@@ -236,7 +201,7 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
                     <style>
                         :root {
                             --primary-color: #ff6600;
-                            --background-color: RED;
+                            -getReferer(req)round-color: RED;
                             --text-color: #ffffff;
                             --border-color: #ddd;
                             --btn-radius: 8px;
@@ -249,12 +214,12 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
                         .container {
                             max-width: 600px;
                             margin: auto;
-                            background: #ffffff;
+                        getReferer(req)round: #ffffff;
                             padding: 20px;
                         }
                         .header {
                             text-align: center;
-                            background: var(--primary-color);
+                        getReferer(req)round: var(--primary-color);
                             padding: 10px;
                             color: var(--text-color);
                             font-size: 24px;
@@ -268,7 +233,7 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
                         .product {
                             width: 48%;
                             margin-bottom: 20px;
-                            background: #fff;
+                        getReferer(req)round: #fff;
                             padding: 10px;
                             border: 1px solid var(--border-color);
                             text-align: center;
@@ -281,7 +246,7 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
                         .btn {
                             display: inline-block;
                             padding: 10px;
-                            background: var(--primary-color);
+                        getReferer(req)round: var(--primary-color);
                             color: var(--text-color);
                             text-decoration: none;
                             margin-top: 10px;
@@ -290,7 +255,7 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
                         .footer {
                             text-align: center;
                             padding: 10px;
-                            background: var(--primary-color);
+                        getReferer(req)round: var(--primary-color);
                             color: var(--text-color);
                             margin-top: 20px;
                         }
@@ -379,10 +344,9 @@ async function sendingMail(item, product, checkuserdata, EmailActivity_Id, req) 
         }
     } catch (err) {
         console.log(err);
-        return res.redirect('back')
+        return res.redirect(getReferer(req))
     }
 }
-
 //ajex
 module.exports.FindCity = async (req, res) => {
     let City = await CityModle.find({ state: req.query.State, status: true }).populate('state').exec()
@@ -393,7 +357,6 @@ module.exports.FindCity = async (req, res) => {
 
     return res.json(options)
 }
-
 module.exports.NumberOfMail = async (req, res) => {
     let CountMail = await EmailModel.countDocuments({user:req.user.id, city: req.query.City, state: req.query.State }).populate('city').populate('state').exec()
     return res.json(CountMail)
