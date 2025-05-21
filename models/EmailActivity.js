@@ -1,20 +1,19 @@
-const mongose = require('mongoose')
+const mongoose = require('mongoose');
 
-const MailActivitySchma = mongose.Schema({
+const MailActivitySchema = mongoose.Schema({
     user: {
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'admin'
     },
-    today:{
-        type:Number
+    today: {
+        type: Number
     },
-    year:{
-        type:Number
+    year: {
+        type: Number
     }
 }, {
     timestamps: true
-})
+});
 
-const mailactivity = mongose.model('mailactivity', MailActivitySchma)
-
-module.exports = mailactivity
+const MailActivity = mongoose.model('mailactivity', MailActivitySchema);
+module.exports = MailActivity;

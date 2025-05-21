@@ -1,16 +1,16 @@
-const mongose = require('mongoose')
+const mongoose = require('mongoose');
 
-const errorSchma = mongose.Schema({
+const errorSchema = mongoose.Schema({
     user: {
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'admin'
-    }, error: {
+    },
+    error: {
         type: Number
     }
 }, {
     timestamps: true
-})
+});
 
-const error = mongose.model('error', errorSchma)
-
-module.exports = error
+const Error = mongoose.model('error', errorSchema);
+module.exports = Error;
